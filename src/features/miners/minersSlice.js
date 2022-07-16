@@ -23,7 +23,11 @@ export const minersSlice = createSlice({
       state.miners[action.payload].amount += 1;
       state.miners[action.payload].perSecond = +(state.miners[action.payload].amount * state.miners[action.payload].perMiner).toFixed(2);
     },
-    buyUntil10: (state, action) => {},
+    buyUntil10: (state, action) => {
+      const amountLeftUntil10 = 10 - state.miners[action.payload].amount%10;
+      state.miners[action.payload].amount += amountLeftUntil10;
+      state.miners[action.payload].perSecond = +(amountLeftUntil10 * state.miners[action.payload].perMiner).toFixed(2);
+    },
   },
 });
 

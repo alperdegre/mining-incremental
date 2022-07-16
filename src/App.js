@@ -8,7 +8,7 @@ import {
 } from "./features/currency/currencySlice";
 import { changePage } from "./features/navigation/navigationSlice";
 import MinerButton from "./components/MinerButton";
-import { buyOne } from "./features/miners/minersSlice";
+import { buyOne, buyUntil10 } from "./features/miners/minersSlice";
 
 function App() {
   const currentCurrency = useSelector(
@@ -22,11 +22,18 @@ function App() {
   const miners = useSelector((state) => state.miners.miners);
   const dispatch = useDispatch();
 
+  // Tick happens inside this custom hook every second
   useInterval(() => {
+    // First maps through miners to get each of their perSecond generation
+    // after that reduces that array to a single value
     const perSecondGeneration = miners
       .map((miner) => miner.perSecond)
       .reduce((prev, curr) => +prev + +curr);
+
+    // Updates per second generation
     dispatch(updateCurrencyPerSecond(perSecondGeneration));
+
+    // Increases money per tick
     dispatch(doTick());
   }, [1000]);
 
@@ -50,9 +57,21 @@ function App() {
   };
 
   const buyMinerHandler = (id) => {
+    // Gets back id from a specific miner generator button and checks if you have enough money
     if (currentCurrency >= miners[id].cost) {
+      // Dispatches buying one, and updates currency with proper cost
       dispatch(buyOne(id));
       dispatch(updateCurrency(miners[id].cost));
+    }
+  };
+
+  const buyMinerUntil10Handler = (id) => {
+    // Gets back id from a specific miner generator button and checks if you have enough money
+    // Calculates the difference until 10 and dispatches accordingly
+    if (currentCurrency >= miners[id].cost * (10 - miners[id].amount%10)) {
+      // Dispatches buying until 10, and updates currency with proper cost
+      dispatch(buyUntil10(id));
+      dispatch(updateCurrency(miners[id].cost * (10 - miners[id].amount%10)));
     }
   };
 
@@ -91,6 +110,7 @@ function App() {
                     amount={miner.amount}
                     cost={miner.cost}
                     onBuyOne={buyMinerHandler}
+                    onBuyUntil10={buyMinerUntil10Handler}
                     currencyPerSecond={miner.perSecond}
                   />
                 );
