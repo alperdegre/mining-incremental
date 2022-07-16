@@ -13,7 +13,7 @@ import {
   buyUntil10,
   unlockNextMiner,
 } from "./features/miners/minersSlice";
-import { formatNumber } from "./utils/numberFormatter";
+import { formatNumber, calculateRealCost } from "./utils/utils";
 
 function App() {
   const currentCurrency = useSelector(
@@ -71,22 +71,26 @@ function App() {
 
   const buyMinerHandler = (id) => {
     // Gets back id from a specific miner generator button and checks if you have enough money
-    if (currentCurrency >= miners[id].cost) {
+    if (currentCurrency >= miners[id].currentCost) {
       // Dispatches buying one, and updates currency with proper cost
       dispatch(buyOne(id));
-      dispatch(updateCurrency(miners[id].cost));
+      dispatch(updateCurrency(miners[id].currentCost));
     }
   };
 
   const buyMinerUntil10Handler = (id) => {
     // Gets back id from a specific miner generator button and checks if you have enough money
     // Calculates the difference until 10 and dispatches accordingly
-    if (currentCurrency >= miners[id].cost * (10 - (miners[id].amount % 10))) {
+    const realCost = calculateRealCost(
+      miners[id].amount,
+      miners[id].growthCoefficient,
+      miners[id].currentCost
+    );
+
+    if (currentCurrency >= realCost) {
       // Dispatches buying until 10, and updates currency with proper cost
       dispatch(buyUntil10(id));
-      dispatch(
-        updateCurrency(miners[id].cost * (10 - (miners[id].amount % 10)))
-      );
+      dispatch(updateCurrency(realCost));
     }
   };
 
@@ -99,16 +103,16 @@ function App() {
         <p>Tickrate: {tickRate}</p>
       </div>
       <div className="navButtonSection">
-        <button onClick={miningButtonHandler} type="button">
+        <button onClick={miningButtonHandler} type="button" className="button">
           Mining
         </button>
-        <button onClick={upgradesButtonHandler} type="button">
+        <button onClick={upgradesButtonHandler} type="button" className="button">
           Upgrades
         </button>
-        <button onClick={statsButtonHandler} type="button">
+        <button onClick={statsButtonHandler} type="button" className="button">
           Stats
         </button>
-        <button onClick={aboutButtonHandler} type="button">
+        <button onClick={aboutButtonHandler} type="button" className="button">
           About
         </button>
       </div>
@@ -124,7 +128,12 @@ function App() {
                       id={miner.id}
                       name={miner.name}
                       amount={miner.amount}
-                      cost={miner.cost}
+                      cost={miner.currentCost}
+                      costUntil10={calculateRealCost(
+                        miner.amount,
+                        miner.growthCoefficient,
+                        miner.currentCost
+                      )}
                       onBuyOne={buyMinerHandler}
                       onBuyUntil10={buyMinerUntil10Handler}
                       currencyPerSecond={miner.perSecond}

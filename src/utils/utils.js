@@ -101,3 +101,13 @@ export function formatNumber(inputNum, fixed) {
     }
   }
 }
+
+export function calculateRealCost(amount, growthCoefficient, currentCost) {
+  let sum = 0;
+  for (let i = 0; i < (10 - (amount % 10)); i++){
+    sum += growthCoefficient**i;
+  }   
+  const realCost = currentCost * sum;
+
+  return realCost;
+}
