@@ -1,9 +1,14 @@
 import useInterval from "./hooks/useInterval";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
-import { doTick } from "./features/currency/currencySlice";
+import {
+  doTick,
+  updateCurrencyPerSecond,
+  updateCurrency
+} from "./features/currency/currencySlice";
 import { changePage } from "./features/navigation/navigationSlice";
 import MinerButton from "./components/MinerButton";
+import { buyOne } from "./features/miners/minersSlice";
 
 function App() {
   const currentCurrency = useSelector(
@@ -14,9 +19,14 @@ function App() {
   );
   const tickRate = useSelector((state) => state.currency.tickRate);
   const currentPage = useSelector((state) => state.navigation.currentPage);
+  const miners = useSelector((state) => state.miners.miners);
   const dispatch = useDispatch();
 
   useInterval(() => {
+    const perSecondGeneration = miners
+      .map((miner) => miner.perSecond)
+      .reduce((prev, curr) => +prev + +curr);
+    dispatch(updateCurrencyPerSecond(perSecondGeneration));
     dispatch(doTick());
   }, [1000]);
 
@@ -39,8 +49,11 @@ function App() {
     dispatch(changePage("ABOUT"));
   };
 
-  const buyMinerHandler = (event) => {
-    event.preventDefault();
+  const buyMinerHandler = (id) => {
+    if (currentCurrency >= miners[id].cost) {
+      dispatch(buyOne(id));
+      dispatch(updateCurrency(miners[id].cost));
+    }
   };
 
   return (
@@ -68,18 +81,21 @@ function App() {
       <div className="mainSection">
         {currentPage === "MINING" && (
           <table className="miningTable">
-            {/* <tr>
-              <th>Mining Type</th>
-              <th>Mining Bucks Generated</th>
-              <th>Miner Amount</th>
-              <th>Purchase</th>
-            </tr> */}
-            <MinerButton
-              name={"Stone"}
-              amount={1}
-              onClick={buyMinerHandler}
-              currencyPerSecond={0.1}
-            />
+            <tbody>
+              {miners.map((miner) => {
+                return (
+                  <MinerButton
+                    key={miner.id}
+                    id={miner.id}
+                    name={miner.name}
+                    amount={miner.amount}
+                    cost={miner.cost}
+                    onBuyOne={buyMinerHandler}
+                    currencyPerSecond={miner.perSecond}
+                  />
+                );
+              })}
+            </tbody>
           </table>
         )}
 
