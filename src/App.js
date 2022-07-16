@@ -4,11 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   doTick,
   updateCurrencyPerSecond,
-  updateCurrency
+  updateCurrency,
 } from "./features/currency/currencySlice";
 import { changePage } from "./features/navigation/navigationSlice";
 import MinerButton from "./components/MinerButton";
-import { buyOne, buyUntil10 } from "./features/miners/minersSlice";
+import {
+  buyOne,
+  buyUntil10,
+  unlockNextMiner,
+} from "./features/miners/minersSlice";
+import { formatNumber } from "./utils/numberFormatter";
 
 function App() {
   const currentCurrency = useSelector(
@@ -20,10 +25,18 @@ function App() {
   const tickRate = useSelector((state) => state.currency.tickRate);
   const currentPage = useSelector((state) => state.navigation.currentPage);
   const miners = useSelector((state) => state.miners.miners);
+  const { unlockTresholds, unlockProgress } = useSelector(
+    (state) => state.miners.unlocks
+  );
   const dispatch = useDispatch();
 
   // Tick happens inside this custom hook every second
   useInterval(() => {
+    // Check to see if you can unlock the next Mining Tier
+    if (currentCurrency >= unlockTresholds[unlockProgress]) {
+      dispatch(unlockNextMiner(unlockProgress + 1));
+    }
+
     // First maps through miners to get each of their perSecond generation
     // after that reduces that array to a single value
     const perSecondGeneration = miners
@@ -35,7 +48,7 @@ function App() {
 
     // Increases money per tick
     dispatch(doTick());
-  }, [1000]);
+  }, [10]);
 
   // Nav button handlers changing the currentPage value inside navigationSlice
   // This value is used to render main section conditionally
@@ -68,10 +81,12 @@ function App() {
   const buyMinerUntil10Handler = (id) => {
     // Gets back id from a specific miner generator button and checks if you have enough money
     // Calculates the difference until 10 and dispatches accordingly
-    if (currentCurrency >= miners[id].cost * (10 - miners[id].amount%10)) {
+    if (currentCurrency >= miners[id].cost * (10 - (miners[id].amount % 10))) {
       // Dispatches buying until 10, and updates currency with proper cost
       dispatch(buyUntil10(id));
-      dispatch(updateCurrency(miners[id].cost * (10 - miners[id].amount%10)));
+      dispatch(
+        updateCurrency(miners[id].cost * (10 - (miners[id].amount % 10)))
+      );
     }
   };
 
@@ -79,7 +94,7 @@ function App() {
     <div className="App">
       <div className="currencySection">
         <h1>Mining Idle Prototype</h1>
-        <h2>You have {currentCurrency.toFixed(2)} Mining Bucks</h2>
+        <h2>You have {formatNumber(currentCurrency, 2)} Mining Bucks</h2>
         <h3>You are getting {currencyPerSecond} Mining Bucks per second</h3>
         <p>Tickrate: {tickRate}</p>
       </div>
@@ -102,18 +117,20 @@ function App() {
           <table className="miningTable">
             <tbody>
               {miners.map((miner) => {
-                return (
-                  <MinerButton
-                    key={miner.id}
-                    id={miner.id}
-                    name={miner.name}
-                    amount={miner.amount}
-                    cost={miner.cost}
-                    onBuyOne={buyMinerHandler}
-                    onBuyUntil10={buyMinerUntil10Handler}
-                    currencyPerSecond={miner.perSecond}
-                  />
-                );
+                if (miner.unlocked) {
+                  return (
+                    <MinerButton
+                      key={miner.id}
+                      id={miner.id}
+                      name={miner.name}
+                      amount={miner.amount}
+                      cost={miner.cost}
+                      onBuyOne={buyMinerHandler}
+                      onBuyUntil10={buyMinerUntil10Handler}
+                      currencyPerSecond={miner.perSecond}
+                    />
+                  );
+                }
               })}
             </tbody>
           </table>

@@ -33,10 +33,10 @@ const MinerButton = ({
       </td>
       <td className="miner__buttons">
         <button type="button" className="miner__button" onClick={buyOneHandler}>
-          Cost: {formatNumber(cost)}
+          Cost: {formatNumber(cost, 0)}
         </button>
         <button type="button" className="miner__button" onClick={buyUntil10Handler}>
-          Until 10, Cost: {formatNumber(cost * (10 - amount%10))}
+          Until 10, Cost: {formatNumber(cost * (10 - amount%10), 0)}
         </button>
       </td>
     </tr>
