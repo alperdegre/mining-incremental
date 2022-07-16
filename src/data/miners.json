@@ -1,0 +1,58 @@
+{
+  "miners": [
+    {
+      "id": 0,
+      "name": "Stone",
+      "amount": 0,
+      "perSecond": 0,
+      "perMiner": 1,
+      "cost": 10,
+      "growthCoefficient": 1.07,
+      "unlocked": true
+    },
+    {
+      "id": 1,
+      "name": "Iron",
+      "amount": 0,
+      "perSecond": 0,
+      "perMiner": 10,
+      "cost": 1000,
+      "growthCoefficient": 1.13,
+      "unlocked": false
+    },
+    {
+      "id": 2,
+      "name": "Gold",
+      "amount": 0,
+      "perSecond": 0,
+      "perMiner": 100,
+      "cost": 10000,
+      "growthCoefficient": 1.21,
+      "unlocked": false
+    },
+    {
+      "id": 3,
+      "name": "Emerald",
+      "amount": 0,
+      "perSecond": 0,
+      "perMiner": 1000,
+      "cost": 100000,
+      "growthCoefficient": 1.29,
+      "unlocked": false
+    },
+    {
+      "id": 4,
+      "name": "Diamond",
+      "amount": 0,
+      "perSecond": 0,
+      "perMiner": 10000,
+      "cost": 1000000,
+      "growthCoefficient": 1.39,
+      "unlocked": false
+    }
+  ],
+  "unlocks": {
+    "unlockTresholds": [1000, 10000, 100000, 1000000],
+    "unlockProgress": 0
+  }
+}
