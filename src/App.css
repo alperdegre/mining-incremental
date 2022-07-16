@@ -1,3 +1,16 @@
-.App {
+* {
+ box-sizing: border-box;
+}
+.currencySection {
   text-align: center;
+}
+
+.navButtonSection {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.miningTable {
+  margin: 0 auto;
+  width: 75%;
 }

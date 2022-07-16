@@ -3,6 +3,7 @@ import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { doTick } from "./features/currency/currencySlice";
 import { changePage } from "./features/navigation/navigationSlice";
+import MinerButton from "./components/MinerButton";
 
 function App() {
   const currentCurrency = useSelector(
@@ -66,14 +67,22 @@ function App() {
       </div>
       <div className="mainSection">
         {currentPage === "MINING" && (
-          <div>
-            <span>Stone </span>
-            <span>Generates 0.1 bucks per Stone Miner </span>
-            <button onClick={buyMinerHandler} type="button">
-              BUY
-            </button>
-          </div>
+          <table className="miningTable">
+            {/* <tr>
+              <th>Mining Type</th>
+              <th>Mining Bucks Generated</th>
+              <th>Miner Amount</th>
+              <th>Purchase</th>
+            </tr> */}
+            <MinerButton
+              name={"Stone"}
+              amount={1}
+              onClick={buyMinerHandler}
+              currencyPerSecond={0.1}
+            />
+          </table>
         )}
+
         {currentPage === "UPGRADES" && <h1>UPGRADES</h1>}
         {currentPage === "STATS" && <h1>STATS</h1>}
         {currentPage === "ABOUT" && <h1>ABOUT</h1>}
