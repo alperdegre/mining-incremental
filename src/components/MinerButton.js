@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./MinerButton.css";
+import { formatNumber } from "../utils/numberFormatter";
 
 const MinerButton = ({
   id,
@@ -32,10 +33,10 @@ const MinerButton = ({
       </td>
       <td className="miner__buttons">
         <button type="button" className="miner__button" onClick={buyOneHandler}>
-          Cost: {cost}
+          Cost: {formatNumber(cost)}
         </button>
         <button type="button" className="miner__button" onClick={buyUntil10Handler}>
-          Until 10, Cost: {cost * (10 - amount%10)}
+          Until 10, Cost: {formatNumber(cost * (10 - amount%10))}
         </button>
       </td>
     </tr>
