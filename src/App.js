@@ -13,7 +13,10 @@ import {
   buyUntil10,
   unlockNextMiner,
 } from "./features/miners/minersSlice";
+import { checkForUpgrades } from "./features/upgrade/upgradesSlice";
 import { formatNumber, calculateRealCost } from "./utils/utils";
+import UpgradeButton from "./components/UpgradeButton";
+import { useEffect, useMemo } from "react";
 
 function App() {
   const currentCurrency = useSelector(
@@ -25,6 +28,16 @@ function App() {
   const tickRate = useSelector((state) => state.currency.tickRate);
   const currentPage = useSelector((state) => state.navigation.currentPage);
   const miners = useSelector((state) => state.miners.miners);
+  const upgrades = useSelector((state) => state.upgrades.upgrades);
+  const unlockedUpgrades = useSelector(
+    (state) => state.upgrades.unlockedUpgrades
+  );
+
+  // Memoizes an array to render upgrades, filters through the array to find 
+  // upgrades where upgrade.id is included in unlocked Upgrades
+  const upgradesToRender = useMemo(()=> {return upgrades.filter((upgrade) => {
+    return unlockedUpgrades.includes(upgrade.id);
+  })},[unlockedUpgrades]);
   const { unlockTresholds, unlockProgress } = useSelector(
     (state) => state.miners.unlocks
   );
@@ -48,7 +61,7 @@ function App() {
 
     // Increases money per tick
     dispatch(doTick());
-  }, [1000]);
+  }, [10]);
 
   // Nav button handlers changing the currentPage value inside navigationSlice
   // This value is used to render main section conditionally
@@ -75,6 +88,7 @@ function App() {
       // Dispatches buying one, and updates currency with proper cost
       dispatch(buyOne(id));
       dispatch(updateCurrency(miners[id].currentCost));
+      dispatch(checkForUpgrades({ id, amount: miners[id].amount + 1 }));
     }
   };
 
@@ -99,14 +113,20 @@ function App() {
       <div className="currencySection">
         <h1>Mining Idle Prototype</h1>
         <h2>You have {formatNumber(currentCurrency, 2)} Mining Bucks</h2>
-        <h3>You are getting {currencyPerSecond.toString()} Mining Bucks per second</h3>
+        <h3>
+          You are getting {currencyPerSecond.toString()} Mining Bucks per second
+        </h3>
         <p>Tickrate: {tickRate}</p>
       </div>
       <div className="navButtonSection">
         <button onClick={miningButtonHandler} type="button" className="button">
           Mining
         </button>
-        <button onClick={upgradesButtonHandler} type="button" className="button">
+        <button
+          onClick={upgradesButtonHandler}
+          type="button"
+          className="button"
+        >
           Upgrades
         </button>
         <button onClick={statsButtonHandler} type="button" className="button">
@@ -145,7 +165,13 @@ function App() {
           </table>
         )}
 
-        {currentPage === "UPGRADES" && <h1>UPGRADES</h1>}
+        {currentPage === "UPGRADES" && (
+          <div className="upgradeSection">
+            {upgradesToRender.map((upgrade) => {
+              return <UpgradeButton key={upgrade.id} name={upgrade.name} cost={upgrade.cost} />;
+            })}
+          </div>
+        )}
         {currentPage === "STATS" && <h1>STATS</h1>}
         {currentPage === "ABOUT" && <h1>ABOUT</h1>}
       </div>

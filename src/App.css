@@ -13,6 +13,11 @@
   margin-bottom: 2rem;
 }
 
+.upgradeSection {
+  margin: 0 auto;
+  width: 75%;
+}
+
 .miningTable {
   margin: 0 auto;
   width: 75%;

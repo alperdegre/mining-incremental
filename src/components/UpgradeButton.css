@@ -1,0 +1,16 @@
+.upgrade__button {
+  background-color: transparent;
+  border: 1px solid black;
+  width: 12%;
+  padding: 0.2rem 2rem;
+  border-radius: 0.4rem;
+  margin: 0 0.1rem;
+  cursor: pointer;
+  font-size: 18px;
+  letter-spacing: 0.1rem;
+}
+
+.upgrade__button:hover {
+  background-color: rgb(201, 196, 196);
+  transition: background-color 0.4s;
+}

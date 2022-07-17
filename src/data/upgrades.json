@@ -1,0 +1,42 @@
+[
+  {
+    "id": 0,
+    "name": "Stone I",
+    "cost": "500",
+    "appliesTo": 0,
+    "amountRequired": 5,
+    "upgradeCoefficient": 1.07
+  },
+  {
+    "id": 1,
+    "name": "Stone II",
+    "cost": "10000",
+    "appliesTo": 0,
+    "amountRequired": 8,
+    "upgradeCoefficient": 1.13
+  },
+  {
+    "id": 2,
+    "name": "Stone III",
+    "cost": "1000000",
+    "appliesTo": 0,
+    "amountRequired": 10,
+    "upgradeCoefficient": 1.18
+  },
+  {
+    "id": 3,
+    "name": "Stone IV",
+    "cost": "100000000",
+    "appliesTo": 0,
+    "amountRequired": 1000,
+    "upgradeCoefficient": 1.23
+  },
+  {
+    "id": 4,
+    "name": "Stone V",
+    "cost": "1000000000",
+    "appliesTo": 0,
+    "amountRequired": 5000,
+    "upgradeCoefficient": 1.32
+  }
+]
