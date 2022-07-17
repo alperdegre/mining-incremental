@@ -1,22 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Decimal from "break_infinity.js";
 
 export const currencySlice = createSlice({
   name: "currency",
   initialState: {
-    currentCurrency: 10,
-    currencyPerSecond: 0,
-    tickRate: 1000
+    currentCurrency: "10",
+    currencyPerSecond: "0",
+    tickRate: 1000,
   },
   reducers: {
     doTick: (state) => {
-      state.currentCurrency += state.currencyPerSecond;
+      const current = new Decimal(state.currentCurrency);
+      const perSec = new Decimal(state.currencyPerSecond);
+
+      state.currentCurrency = current.plus(perSec).toString();
     },
     updateCurrencyPerSecond: (state, action) => {
       state.currencyPerSecond = +action.payload.toFixed(2);
     },
-    updateCurrency: (state,action) => {
-      state.currentCurrency -= action.payload;
-    }
+    updateCurrency: (state, action) => {
+      const current = new Decimal(state.currentCurrency);
+      state.currentCurrency = current.minus(action.payload).toString();
+    },
   },
 });
 

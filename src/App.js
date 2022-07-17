@@ -48,7 +48,7 @@ function App() {
 
     // Increases money per tick
     dispatch(doTick());
-  }, [10]);
+  }, [1000]);
 
   // Nav button handlers changing the currentPage value inside navigationSlice
   // This value is used to render main section conditionally
@@ -99,7 +99,7 @@ function App() {
       <div className="currencySection">
         <h1>Mining Idle Prototype</h1>
         <h2>You have {formatNumber(currentCurrency, 2)} Mining Bucks</h2>
-        <h3>You are getting {currencyPerSecond} Mining Bucks per second</h3>
+        <h3>You are getting {currencyPerSecond.toString()} Mining Bucks per second</h3>
         <p>Tickrate: {tickRate}</p>
       </div>
       <div className="navButtonSection">
