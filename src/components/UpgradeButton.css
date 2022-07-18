@@ -1,9 +1,13 @@
 .upgrade__button {
   background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border: 1px solid black;
   width: 49.8%;
   margin-bottom: 1rem;
-  padding: 0.2rem 2rem;
+  text-align: start;
+  padding: 0.1rem 2rem;
   border-radius: 0.4rem;
   cursor: pointer;
   font-size: 18px;
@@ -13,4 +17,9 @@
 .upgrade__button:hover {
   background-color: rgb(201, 196, 196);
   transition: background-color 0.4s;
+}
+
+.upgrade__cost {
+  text-align: end;
+  font-size: 24px;
 }

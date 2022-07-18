@@ -12,6 +12,7 @@
   {
     "id": 1,
     "name": "Stone II",
+    "description": "Increases Stone Miner's generation by %10",
     "cost": "10000",
     "appliesTo": 0,
     "amountRequired": 8,
@@ -21,6 +22,7 @@
   {
     "id": 2,
     "name": "Stone III",
+    "description": "Increases Stone Miner's generation by %10",
     "cost": "1000000",
     "appliesTo": 0,
     "amountRequired": 10,
@@ -30,6 +32,7 @@
   {
     "id": 3,
     "name": "Stone IV",
+    "description": "Increases Stone Miner's generation by %10",
     "cost": "100000000",
     "appliesTo": 0,
     "amountRequired": 1000,
@@ -39,6 +42,7 @@
   {
     "id": 4,
     "name": "Stone V",
+    "description": "Increases Stone Miner's generation by %10",
     "cost": "1000000000",
     "appliesTo": 0,
     "amountRequired": 5000,

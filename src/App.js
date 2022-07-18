@@ -201,6 +201,7 @@ function App() {
                   id={upgrade.id}
                   name={upgrade.name}
                   cost={upgrade.cost}
+                  description={upgrade.description}
                   onUpgradeBought={buyUpgradeHandler}
                 />
               );
