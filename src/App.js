@@ -12,13 +12,18 @@ import {
   buyOne,
   buyUntil10,
   unlockNextMiner,
-  applyMinerUpgrade
+  applyMinerUpgrade,
 } from "./features/miners/minersSlice";
 import { checkForUpgrades, buyUpgrade } from "./features/upgrade/upgradesSlice";
 import { formatNumber, calculateRealCost } from "./utils/utils";
 import UpgradeButton from "./components/UpgradeButton";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import Decimal from "break_infinity.js";
+import {
+  updateMinersBought,
+  updateTimeAndMoneyStats,
+  updateUpgradesBought,
+} from "./features/stats/statsSlice";
 
 function App() {
   // Currency Selectors
@@ -42,6 +47,29 @@ function App() {
     (state) => state.upgrades.unlockedUpgrades
   );
   const boughtUpgrades = useSelector((state) => state.upgrades.boughtUpgrades);
+
+  // Stats Selectors
+  const totalGeneratedBucks = useSelector(
+    (state) => state.stats.totalGeneratedBucks
+  );
+  const totalSecondsPassed = useSelector(
+    (state) => state.stats.totalSecondsPassed
+  );
+  const totalBucksSpent = useSelector((state) => state.stats.totalBucksSpent);
+  const totalMinersBought = useSelector(
+    (state) => state.stats.totalMinersBought
+  );
+  const totalUpgradesBought = useSelector(
+    (state) => state.stats.totalUpgradesBought
+  );
+
+  // Time Variables
+  const year = Math.floor(totalSecondsPassed / 31536000);
+  const month = Math.floor((totalSecondsPassed % 31536000) / 2628000);
+  const day = Math.floor(((totalSecondsPassed % 31536000) % 2628000) / 86400);
+  const hour = Math.floor((totalSecondsPassed % (3600 * 24)) / 3600);
+  const minute = Math.floor((totalSecondsPassed % 3600) / 60);
+  const second = Math.floor(totalSecondsPassed % 60);
 
   // Memoizes an array to render upgrades, filters through the array to find
   // upgrades where upgrade.id is included in unlocked Upgrades
@@ -76,7 +104,10 @@ function App() {
 
     // Increases money per tick
     dispatch(doTick());
-  }, [10]);
+
+    // Updates Total Time and Total Money Gained for stats
+    dispatch(updateTimeAndMoneyStats(perSecondGeneration));
+  }, [1000]);
 
   // Nav button handlers changing the currentPage value inside navigationSlice
   // This value is used to render main section conditionally
@@ -104,6 +135,7 @@ function App() {
       dispatch(buyOne(id));
       dispatch(updateCurrency(miners[id].currentCost));
       dispatch(checkForUpgrades({ id, amount: miners[id].amount + 1 }));
+      dispatch(updateMinersBought({ amount: 1, cost: miners[id].currentCost }));
     }
   };
 
@@ -120,6 +152,7 @@ function App() {
       // Dispatches buying until 10, and updates currency with proper cost
       dispatch(buyUntil10(id));
       dispatch(updateCurrency(realCost));
+      dispatch(updateMinersBought(10 - (miners[id].amount % 10)));
     }
   };
 
@@ -128,10 +161,17 @@ function App() {
     const upgradeCost = new Decimal(cost);
 
     if (currencyAvailable.minus(upgradeCost).greaterThan(0)) {
-      const specificUpgrade = upgrades.filter(upgrade => upgrade.id === id);
-      dispatch(updateCurrency(upgradeCost));
+      const specificUpgrade = upgrades.filter((upgrade) => upgrade.id === id);
+      dispatch(updateCurrency(upgradeCost.toString()));
       dispatch(buyUpgrade(id));
-      dispatch(applyMinerUpgrade({id: specificUpgrade[0].id, type: specificUpgrade[0].type, coefficient: specificUpgrade[0].coefficient}));
+      dispatch(
+        applyMinerUpgrade({
+          id: specificUpgrade[0].id,
+          type: specificUpgrade[0].type,
+          coefficient: specificUpgrade[0].coefficient,
+        })
+      );
+      dispatch(updateUpgradesBought(upgradeCost.toString()));
     }
   };
 
@@ -208,7 +248,72 @@ function App() {
             })}
           </div>
         )}
-        {currentPage === "STATS" && <h1>STATS</h1>}
+        {currentPage === "STATS" && (
+          <div className="statsSection">
+            <h2>Stats</h2>
+            <p className="stats__text">
+              You have generated{" "}
+              <span className="stats__stat">
+                {formatNumber(totalGeneratedBucks, 2)}
+              </span>{" "}
+              bucks so far!
+            </p>
+            <p className="stats__text">
+              You bought{" "}
+              <span className="stats__stat">
+                {formatNumber(totalMinersBought, 0)}
+              </span>{" "}
+              miners to do that.
+            </p>
+            <p className="stats__text">
+              You bought{" "}
+              <span className="stats__stat">{totalUpgradesBought}</span>{" "}
+              upgrades for your miners.
+            </p>
+            <p className="stats__text">
+              You spent{" "}
+              <span className="stats__stat">
+                {formatNumber(totalBucksSpent, 2)}
+              </span>{" "}
+              bucks for those miners and upgrades.
+            </p>
+            <p className="stats__text">
+              You have played for{" "}
+              {totalSecondsPassed >= 31536000 && (
+                <>
+                  <span className="stats__stat">{year}</span>{" "}
+                  {year === 1 ? "year" : "years"}{" "}
+                </>
+              )}
+              {totalSecondsPassed >= 2592000 && (
+                <>
+                  <span className="stats__stat">{month}</span>{" "}
+                  {month === 1 ? "month" : "months"}{" "}
+                </>
+              )}
+              {totalSecondsPassed >= 86400 && (
+                <>
+                  <span className="stats__stat">{day}</span>{" "}
+                  {day === 1 ? "day" : "days"}{" "}
+                </>
+              )}
+              {totalSecondsPassed >= 3600 && (
+                <>
+                  <span className="stats__stat">{hour}</span>{" "}
+                  {hour === 1 ? "hour" : "hours"}{" "}
+                </>
+              )}
+              {totalSecondsPassed >= 60 && (
+                <>
+                  <span className="stats__stat">{minute}</span>{" "}
+                  {minute === 1 ? "minute" : "minutes"} and{" "}
+                </>
+              )}
+              <span className="stats__stat">{second}</span>{" "}
+              {second <= 1 ? "second" : "seconds"}
+            </p>
+          </div>
+        )}
         {currentPage === "ABOUT" && <h1>ABOUT</h1>}
       </div>
     </div>

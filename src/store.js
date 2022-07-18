@@ -4,6 +4,7 @@ import currencyReducer from './features/currency/currencySlice';
 import navigationReducer from './features/navigation/navigationSlice';
 import minersReducer from './features/miners/minersSlice'
 import upgradesReducer from './features/upgrade/upgradesSlice';
+import statsReducer from './features/stats/statsSlice';
 
 export default configureStore({
     reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
         navigation: navigationReducer,
         miners: minersReducer,
         upgrades: upgradesReducer,
+        stats: statsReducer,
     },
 })
