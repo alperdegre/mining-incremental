@@ -27,10 +27,19 @@ export const upgradesSlice = createSlice({
         state.unlockedUpgrades = unlockableUpgrades;
       }
     },
+    buyUpgrade: (state, action) => {
+      // Gets a specific upgrade id, checks if that upgrade is in boughtUpgrades array
+      // If its not present, adds it to boughtUpgrades array
+      if(state.boughtUpgrades.includes(action.payload)){
+        return;
+      }
+
+      state.boughtUpgrades.push(action.payload);
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { checkForUpgrades } = upgradesSlice.actions;
+export const { checkForUpgrades, buyUpgrade } = upgradesSlice.actions;
 
 export default upgradesSlice.reducer;

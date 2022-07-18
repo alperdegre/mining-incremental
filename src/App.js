@@ -12,13 +12,16 @@ import {
   buyOne,
   buyUntil10,
   unlockNextMiner,
+  applyMinerUpgrade
 } from "./features/miners/minersSlice";
-import { checkForUpgrades } from "./features/upgrade/upgradesSlice";
+import { checkForUpgrades, buyUpgrade } from "./features/upgrade/upgradesSlice";
 import { formatNumber, calculateRealCost } from "./utils/utils";
 import UpgradeButton from "./components/UpgradeButton";
 import { useEffect, useMemo } from "react";
+import Decimal from "break_infinity.js";
 
 function App() {
+  // Currency Selectors
   const currentCurrency = useSelector(
     (state) => state.currency.currentCurrency
   );
@@ -26,18 +29,30 @@ function App() {
     (state) => state.currency.currencyPerSecond
   );
   const tickRate = useSelector((state) => state.currency.tickRate);
+
+  // Navigation Selectors
   const currentPage = useSelector((state) => state.navigation.currentPage);
+
+  // Miner Selectors
   const miners = useSelector((state) => state.miners.miners);
+
+  // Upgrade Selectors
   const upgrades = useSelector((state) => state.upgrades.upgrades);
   const unlockedUpgrades = useSelector(
     (state) => state.upgrades.unlockedUpgrades
   );
+  const boughtUpgrades = useSelector((state) => state.upgrades.boughtUpgrades);
 
-  // Memoizes an array to render upgrades, filters through the array to find 
+  // Memoizes an array to render upgrades, filters through the array to find
   // upgrades where upgrade.id is included in unlocked Upgrades
-  const upgradesToRender = useMemo(()=> {return upgrades.filter((upgrade) => {
-    return unlockedUpgrades.includes(upgrade.id);
-  })},[unlockedUpgrades]);
+  const upgradesToRender = useMemo(() => {
+    return upgrades.filter((upgrade) => {
+      return (
+        unlockedUpgrades.includes(upgrade.id) &&
+        !boughtUpgrades.includes(upgrade.id)
+      );
+    });
+  }, [unlockedUpgrades, boughtUpgrades]);
   const { unlockTresholds, unlockProgress } = useSelector(
     (state) => state.miners.unlocks
   );
@@ -108,6 +123,17 @@ function App() {
     }
   };
 
+  const buyUpgradeHandler = (id, cost) => {
+    const currencyAvailable = new Decimal(currentCurrency);
+    const upgradeCost = new Decimal(cost);
+
+    if (currencyAvailable.minus(upgradeCost).greaterThan(0)) {
+      const specificUpgrade = upgrades.filter(upgrade => upgrade.id === id);
+      dispatch(buyUpgrade(id));
+      dispatch(applyMinerUpgrade({id: specificUpgrade[0].id, type: specificUpgrade[0].type, coefficient: specificUpgrade[0].coefficient}));
+    }
+  };
+
   return (
     <div className="App">
       <div className="currencySection">
@@ -168,7 +194,15 @@ function App() {
         {currentPage === "UPGRADES" && (
           <div className="upgradeSection">
             {upgradesToRender.map((upgrade) => {
-              return <UpgradeButton key={upgrade.id} name={upgrade.name} cost={upgrade.cost} />;
+              return (
+                <UpgradeButton
+                  key={upgrade.id}
+                  id={upgrade.id}
+                  name={upgrade.name}
+                  cost={upgrade.cost}
+                  onUpgradeBought={buyUpgradeHandler}
+                />
+              );
             })}
           </div>
         )}
