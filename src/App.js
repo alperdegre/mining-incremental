@@ -129,6 +129,7 @@ function App() {
 
     if (currencyAvailable.minus(upgradeCost).greaterThan(0)) {
       const specificUpgrade = upgrades.filter(upgrade => upgrade.id === id);
+      dispatch(updateCurrency(upgradeCost));
       dispatch(buyUpgrade(id));
       dispatch(applyMinerUpgrade({id: specificUpgrade[0].id, type: specificUpgrade[0].type, coefficient: specificUpgrade[0].coefficient}));
     }
