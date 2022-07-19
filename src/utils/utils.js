@@ -1,3 +1,5 @@
+import Decimal from "break_infinity.js";
+
 export function formatNumber(inputNum, fixed) {
   let num = inputNum;
   if (typeof inputNum === "string") {
@@ -103,11 +105,23 @@ export function formatNumber(inputNum, fixed) {
 }
 
 export function calculateRealCost(amount, growthCoefficient, currentCost) {
-  let sum = 0;
-  for (let i = 0; i < (10 - (amount % 10)); i++){
-    sum += growthCoefficient**i;
-  }   
-  const realCost = currentCost * sum;
+  const amountDecimal = new Decimal(amount);
+  const currentCostDecimal = new Decimal(currentCost);
+  const unitsLeftUntil10 = amountDecimal
+    .div(10)
+    .minus(amountDecimal.div(10).floor())
+    .times(10)
+    .minus(10)
+    .abs()
+    .toNumber();
 
-  return realCost;
+  let total = 0;
+
+  for (let i = 0; i < unitsLeftUntil10; i++) {
+    total += growthCoefficient ** i;
+  }
+
+  const realCost = currentCostDecimal.times(total);
+
+  return realCost.toString();
 }

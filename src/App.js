@@ -17,13 +17,14 @@ import {
 import { checkForUpgrades, buyUpgrade } from "./features/upgrade/upgradesSlice";
 import { formatNumber, calculateRealCost } from "./utils/utils";
 import UpgradeButton from "./components/UpgradeButton";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import Decimal from "break_infinity.js";
 import {
   updateMinersBought,
   updateTimeAndMoneyStats,
   updateUpgradesBought,
 } from "./features/stats/statsSlice";
+import { resetGame, saveGame } from "./features/settings/settingsSlice";
 
 function App() {
   // Currency Selectors
@@ -80,7 +81,7 @@ function App() {
         !boughtUpgrades.includes(upgrade.id)
       );
     });
-  }, [unlockedUpgrades, boughtUpgrades]);
+  }, [unlockedUpgrades, boughtUpgrades, upgrades]);
   const { unlockTresholds, unlockProgress } = useSelector(
     (state) => state.miners.unlocks
   );
@@ -97,7 +98,8 @@ function App() {
     // after that reduces that array to a single value
     const perSecondGeneration = miners
       .map((miner) => miner.perSecond)
-      .reduce((prev, curr) => +prev + +curr);
+      .reduce((prev, curr) => new Decimal(prev).plus(curr))
+      .toString();
 
     // Updates per second generation
     dispatch(updateCurrencyPerSecond(perSecondGeneration));
@@ -107,7 +109,38 @@ function App() {
 
     // Updates Total Time and Total Money Gained for stats
     dispatch(updateTimeAndMoneyStats(perSecondGeneration));
-  }, [1000]);
+  }, [100]);
+
+  // Interval to save the game every minute
+  useInterval(() => {
+    // Save Game
+    const currentState = {
+      currency: {
+        currentCurrency,
+        currencyPerSecond,
+      },
+      miners: miners,
+      upgrades: {
+        unlockedUpgrades,
+        boughtUpgrades,
+      },
+      stats: {
+        totalGeneratedBucks,
+        totalSecondsPassed,
+        totalBucksSpent,
+        totalMinersBought,
+        totalUpgradesBought,
+      },
+      timestamp: Date.now(),
+    };
+
+    //dispatch(saveGame(currentState));
+  }, [60000000]);
+
+  useEffect(() => {
+    const saveState = JSON.parse(localStorage.getItem("gameSave"));
+    console.log(saveState);
+  }, []);
 
   // Nav button handlers changing the currentPage value inside navigationSlice
   // This value is used to render main section conditionally
@@ -130,11 +163,14 @@ function App() {
 
   const buyMinerHandler = (id) => {
     // Gets back id from a specific miner generator button and checks if you have enough money
-    if (currentCurrency >= miners[id].currentCost) {
+    const current = new Decimal(currentCurrency);
+    if (current.greaterThanOrEqualTo(miners[id].currentCost)) {
       // Dispatches buying one, and updates currency with proper cost
+      // Checks for upgrades and updates miners
+      const minerAmount = new Decimal(miners[id].amount).plus(1).toString();
       dispatch(buyOne(id));
       dispatch(updateCurrency(miners[id].currentCost));
-      dispatch(checkForUpgrades({ id, amount: miners[id].amount + 1 }));
+      dispatch(checkForUpgrades({ id, amount: minerAmount }));
       dispatch(updateMinersBought({ amount: 1, cost: miners[id].currentCost }));
     }
   };
@@ -147,12 +183,25 @@ function App() {
       miners[id].growthCoefficient,
       miners[id].currentCost
     );
+    const currencyAvailable = new Decimal(currentCurrency);
 
-    if (currentCurrency >= realCost) {
+    if (currencyAvailable.greaterThanOrEqualTo(realCost)) {
       // Dispatches buying until 10, and updates currency with proper cost
+      const minerAmount = new Decimal(miners[id].amount).plus(1);
+
       dispatch(buyUntil10(id));
       dispatch(updateCurrency(realCost));
-      dispatch(updateMinersBought(10 - (miners[id].amount % 10)));
+      dispatch(
+        updateMinersBought(
+          minerAmount
+            .div(10)
+            .minus(minerAmount.div(10).floor())
+            .times(10)
+            .minus(10)
+            .abs()
+            .toString()
+        )
+      );
     }
   };
 
@@ -173,6 +222,11 @@ function App() {
       );
       dispatch(updateUpgradesBought(upgradeCost.toString()));
     }
+  };
+
+  const resetButtonHandler = (event) => {
+    event.preventDefault();
+    dispatch(resetGame());
   };
 
   return (
@@ -312,6 +366,13 @@ function App() {
               <span className="stats__stat">{second}</span>{" "}
               {second <= 1 ? "second" : "seconds"}
             </p>
+            <button
+              type="button"
+              className="button reset__button"
+              onClick={resetButtonHandler}
+            >
+              Reset Game
+            </button>
           </div>
         )}
         {currentPage === "ABOUT" && <h1>ABOUT</h1>}

@@ -5,6 +5,7 @@ import navigationReducer from './features/navigation/navigationSlice';
 import minersReducer from './features/miners/minersSlice'
 import upgradesReducer from './features/upgrade/upgradesSlice';
 import statsReducer from './features/stats/statsSlice';
+import settingsReducer from './features/settings/settingsSlice';
 
 export default configureStore({
     reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
         miners: minersReducer,
         upgrades: upgradesReducer,
         stats: statsReducer,
+        settings: settingsReducer,
     },
 })

@@ -48,12 +48,12 @@ const MinerButton = ({
 MinerButton.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
-  amount: PropTypes.number,
-  cost: PropTypes.number,
-  costUntil10: PropTypes.number,
+  amount: PropTypes.string,
+  cost: PropTypes.string,
+  costUntil10: PropTypes.string,
   onBuyOne: PropTypes.func,
   onBuyUntil10: PropTypes.func,
-  currencyPerSecond: PropTypes.number,
+  currencyPerSecond: PropTypes.string,
 };
 
 export default MinerButton;

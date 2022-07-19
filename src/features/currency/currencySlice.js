@@ -16,7 +16,8 @@ export const currencySlice = createSlice({
       state.currentCurrency = current.plus(perSec).toString();
     },
     updateCurrencyPerSecond: (state, action) => {
-      state.currencyPerSecond = +action.payload.toFixed(2);
+      const newPerSec = new Decimal(action.payload);
+      state.currencyPerSecond = newPerSec.toString();
     },
     updateCurrency: (state, action) => {
       const current = new Decimal(state.currentCurrency);

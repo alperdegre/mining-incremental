@@ -7,38 +7,56 @@ export const minersSlice = createSlice({
   initialState: initialState,
   reducers: {
     buyOne: (state, action) => {
-      const updatedAmount = state.miners[action.payload].amount + 1;
       // Increases amount
-      state.miners[action.payload].amount += 1;
+      const updatedAmount = new Decimal(state.miners[action.payload].amount)
+        .plus(1)
+        .toString();
+      state.miners[action.payload].amount = updatedAmount;
 
       // Increases per second by multiplying amount of miners with generation per miner
-      state.miners[action.payload].perSecond = +(
-        updatedAmount * state.miners[action.payload].perMiner
-      ).toFixed(2);
+      const perMiner = new Decimal(state.miners[action.payload].perMiner);
+      state.miners[action.payload].perSecond = perMiner
+        .times(updatedAmount)
+        .toString();
 
       // Updates the current cost with the following formula
       // currentCost = baseCost*growthCoefficient^amount
-      state.miners[action.payload].currentCost =
-        state.miners[action.payload].baseCost *
-        state.miners[action.payload].growthCoefficient ** updatedAmount;
+      const baseCost = new Decimal(state.miners[action.payload].baseCost);
+      const growthCoefficient = new Decimal(
+        state.miners[action.payload].growthCoefficient
+      );
+      state.miners[action.payload].currentCost = baseCost
+        .times(growthCoefficient.pow(updatedAmount))
+        .toString();
     },
     buyUntil10: (state, action) => {
       // Calculates the amount left until 10
-      const amountLeftUntil10 = 10 - (state.miners[action.payload].amount % 10);
-      const updatedAmount =
-        state.miners[action.payload].amount + amountLeftUntil10;
+      const amount = new Decimal(state.miners[action.payload].amount);
+      const amountLeftUntil10 = amount
+        .div(10)
+        .minus(amount.div(10).floor())
+        .times(10)
+        .minus(10)
+        .abs();
+      const updatedAmount = amount.plus(amountLeftUntil10).toString();
       // Updates the amount
-      state.miners[action.payload].amount += amountLeftUntil10;
+      state.miners[action.payload].amount = updatedAmount;
       // Updates perSecond by calculating the increase first with amountUntil10*generationPerMiner
       // and then adds that to current perSecond
-      state.miners[action.payload].perSecond += +(
-        amountLeftUntil10 * state.miners[action.payload].perMiner
-      ).toFixed(2);
+      const perSecond = new Decimal(state.miners[action.payload].perSecond);
+      state.miners[action.payload].perSecond = perSecond
+        .plus(amountLeftUntil10.times(state.miners[action.payload].perMiner))
+        .toString();
+
       // Updates the currentCost to be in line with the following formula
       // currentCost = baseCost*growthCoefficient^amount
-      state.miners[action.payload].currentCost =
-        state.miners[action.payload].baseCost *
-        state.miners[action.payload].growthCoefficient ** updatedAmount;
+      const baseCost = new Decimal(state.miners[action.payload].baseCost);
+      const growthCoefficient = new Decimal(
+        state.miners[action.payload].growthCoefficient
+      );
+      state.miners[action.payload].currentCost = baseCost
+        .times(growthCoefficient.pow(updatedAmount))
+        .toString();
     },
     unlockNextMiner: (state, action) => {
       state.miners[action.payload].unlocked = true;
@@ -49,22 +67,24 @@ export const minersSlice = createSlice({
       // Gets multiplier type, coefficient and miner id in action.payload
       let multiplier = 0;
       let newPerMiner = 0;
+      const baseGeneration = new Decimal(
+        state.miners[action.payload.id].baseGeneration
+      );
 
       switch (action.payload.type) {
         case "additive":
           multiplier =
-            action.payload.coefficient%1 +
+            (action.payload.coefficient % 1) +
             state.miners[action.payload.id].additiveMultiplier;
           state.miners[action.payload.id].additiveMultiplier +=
             action.payload.coefficient;
-          newPerMiner =
-            state.miners[action.payload.id].baseGeneration *
-            state.miners[action.payload.id].multiplicativeMultiplier *
-            multiplier;
-          state.miners[action.payload.id].perMiner = newPerMiner;
-          state.miners[action.payload.id].perSecond =
-            state.miners[action.payload.id].amount * newPerMiner;
-
+          newPerMiner = baseGeneration
+            .times(state.miners[action.payload.id].multiplicativeMultiplier)
+            .times(multiplier);
+          state.miners[action.payload.id].perMiner = newPerMiner.toString();
+          state.miners[action.payload.id].perSecond = newPerMiner
+            .times(state.miners[action.payload.id].amount)
+            .toString();
           break;
         case "multiplicative":
           multiplier =
@@ -72,13 +92,13 @@ export const minersSlice = createSlice({
             state.miners[action.payload.id].multiplicativeMultiplier;
           state.miners[action.payload.id].multiplicativeMultiplier *=
             action.payload.coefficient;
-          newPerMiner =
-            state.miners[action.payload.id].baseGeneration *
-            state.miners[action.payload.id].additiveMultiplier *
-            multiplier;
-          state.miners[action.payload.id].perMiner = newPerMiner;
-          state.miners[action.payload.id].perSecond =
-            state.miners[action.payload.id].amount * newPerMiner;
+          newPerMiner = baseGeneration
+            .times(state.miners[action.payload.id].additiveMultiplier)
+            .times(multiplier);
+          state.miners[action.payload.id].perMiner = newPerMiner.toString();
+          state.miners[action.payload.id].perSecond = newPerMiner
+            .times(state.miners[action.payload.id].amount)
+            .toString();
           break;
         default:
           break;

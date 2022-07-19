@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Decimal from "break_infinity.js";
 import initialState from "../../data/upgrades.json";
 
 export const upgradesSlice = createSlice({
@@ -15,7 +16,9 @@ export const upgradesSlice = createSlice({
         .filter((upgrade) => {
           return (
             upgrade.appliesTo === action.payload.id &&
-            upgrade.amountRequired <= action.payload.amount
+            new Decimal(upgrade.amountRequired).lessThanOrEqualTo(
+              action.payload.amount
+            )
           );
         })
         // And maps through those upgrades to only select id's from them.
@@ -30,12 +33,12 @@ export const upgradesSlice = createSlice({
     buyUpgrade: (state, action) => {
       // Gets a specific upgrade id, checks if that upgrade is in boughtUpgrades array
       // If its not present, adds it to boughtUpgrades array
-      if(state.boughtUpgrades.includes(action.payload)){
+      if (state.boughtUpgrades.includes(action.payload)) {
         return;
       }
 
       state.boughtUpgrades.push(action.payload);
-    }
+    },
   },
 });
 

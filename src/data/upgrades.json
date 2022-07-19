@@ -5,7 +5,7 @@
     "description": "Increases Stone Miner's generation by %10",
     "cost": "500",
     "appliesTo": 0,
-    "amountRequired": 5,
+    "amountRequired": "5",
     "type": "additive",
     "coefficient": 1.10
   },
@@ -15,7 +15,7 @@
     "description": "Increases Stone Miner's generation by %10",
     "cost": "10000",
     "appliesTo": 0,
-    "amountRequired": 8,
+    "amountRequired": "8",
     "type": "additive",
     "coefficient": 1.13
   },
@@ -25,7 +25,7 @@
     "description": "Increases Stone Miner's generation by %10",
     "cost": "1000000",
     "appliesTo": 0,
-    "amountRequired": 10,
+    "amountRequired": "10",
     "type": "additive",
     "coefficient": 1.18
   },
@@ -35,7 +35,7 @@
     "description": "Increases Stone Miner's generation by %10",
     "cost": "100000000",
     "appliesTo": 0,
-    "amountRequired": 1000,
+    "amountRequired": "1000",
     "type": "additive",
     "coefficient": 1.23
   },
@@ -45,7 +45,7 @@
     "description": "Increases Stone Miner's generation by %10",
     "cost": "1000000000",
     "appliesTo": 0,
-    "amountRequired": 5000,
+    "amountRequired": "5000",
     "type": "additive",
     "coefficient": 1.32
   }

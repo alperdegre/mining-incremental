@@ -52,6 +52,11 @@
   letter-spacing: 0.1rem;
 }
 
+.reset__button {
+  width: 20%;
+  margin: 2rem;
+}
+
 .button:hover {
   background-color: rgb(201, 196, 196);
   transition: background-color 0.4s;
