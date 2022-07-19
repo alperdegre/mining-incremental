@@ -24,7 +24,7 @@ import {
   updateTimeAndMoneyStats,
   updateUpgradesBought,
 } from "./features/stats/statsSlice";
-import { resetGame, saveGame } from "./features/settings/settingsSlice";
+import { resetGame, saveGame, loadGame } from "./features/settings/settingsSlice";
 
 function App() {
   // Currency Selectors
@@ -63,6 +63,9 @@ function App() {
   const totalUpgradesBought = useSelector(
     (state) => state.stats.totalUpgradesBought
   );
+
+  // Settings Selectors
+  const isLoading = useSelector((state) => state.settings.isLoading);
 
   // Time Variables
   const year = Math.floor(totalSecondsPassed / 31536000);
@@ -109,7 +112,7 @@ function App() {
 
     // Updates Total Time and Total Money Gained for stats
     dispatch(updateTimeAndMoneyStats(perSecondGeneration));
-  }, [100]);
+  }, [1000]);
 
   // Interval to save the game every minute
   useInterval(() => {
@@ -134,12 +137,12 @@ function App() {
       timestamp: Date.now(),
     };
 
-    //dispatch(saveGame(currentState));
-  }, [60000000]);
+    saveCurrentGame();
+  }, [60000]);
 
   useEffect(() => {
     const saveState = JSON.parse(localStorage.getItem("gameSave"));
-    console.log(saveState);
+    dispatch(loadGame(saveState));
   }, []);
 
   // Nav button handlers changing the currentPage value inside navigationSlice
@@ -169,7 +172,7 @@ function App() {
       // Checks for upgrades and updates miners
       const minerAmount = new Decimal(miners[id].amount).plus(1).toString();
       dispatch(buyOne(id));
-      dispatch(updateCurrency(miners[id].currentCost));
+      dispatch(updateCurrency({type: "remove", currency: miners[id].currentCost}));
       dispatch(checkForUpgrades({ id, amount: minerAmount }));
       dispatch(updateMinersBought({ amount: 1, cost: miners[id].currentCost }));
     }
@@ -190,7 +193,7 @@ function App() {
       const minerAmount = new Decimal(miners[id].amount).plus(1);
 
       dispatch(buyUntil10(id));
-      dispatch(updateCurrency(realCost));
+      dispatch(updateCurrency({type: "remove", currency: realCost}));
       dispatch(
         updateMinersBought(
           minerAmount
@@ -211,7 +214,7 @@ function App() {
 
     if (currencyAvailable.minus(upgradeCost).greaterThan(0)) {
       const specificUpgrade = upgrades.filter((upgrade) => upgrade.id === id);
-      dispatch(updateCurrency(upgradeCost.toString()));
+      dispatch(updateCurrency({type: "remove", currency: upgradeCost.toString()}));
       dispatch(buyUpgrade(id));
       dispatch(
         applyMinerUpgrade({
@@ -228,6 +231,35 @@ function App() {
     event.preventDefault();
     dispatch(resetGame());
   };
+
+  const saveButtonHandler = event => {
+    event.preventDefault();
+    saveCurrentGame();
+  }
+
+  const saveCurrentGame = () => {
+    const currentState = {
+      currency: {
+        currentCurrency,
+        currencyPerSecond,
+      },
+      miners: miners,
+      upgrades: {
+        unlockedUpgrades,
+        boughtUpgrades,
+      },
+      stats: {
+        totalGeneratedBucks,
+        totalSecondsPassed,
+        totalBucksSpent,
+        totalMinersBought,
+        totalUpgradesBought,
+      },
+      timestamp: Date.now(),
+    };
+
+    dispatch(saveGame(currentState));
+  }
 
   return (
     <div className="App">
@@ -372,6 +404,13 @@ function App() {
               onClick={resetButtonHandler}
             >
               Reset Game
+            </button>
+            <button
+              type="button"
+              className="button reset__button"
+              onClick={saveButtonHandler}
+            >
+              Save Game
             </button>
           </div>
         )}

@@ -103,14 +103,15 @@ export const minersSlice = createSlice({
         default:
           break;
       }
-      // Updates perMiner = baseGeneration * additiveMultipliers * multiplicativeMultipliers
-      // updates perSecond = amount * perMiner
     },
+    loadMiners: (state, action) => {
+      state.miners = action.payload;
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { buyOne, buyUntil10, unlockNextMiner, applyMinerUpgrade } =
+export const { buyOne, buyUntil10, unlockNextMiner, applyMinerUpgrade, loadMiners } =
   minersSlice.actions;
 
 export default minersSlice.reducer;

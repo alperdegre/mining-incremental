@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isFulfilled } from "@reduxjs/toolkit";
 import Decimal from "break_infinity.js";
 import initialState from "../../data/upgrades.json";
+import { loadGame } from "../settings/settingsSlice";
 
 export const upgradesSlice = createSlice({
   name: "upgrades",
@@ -39,10 +40,14 @@ export const upgradesSlice = createSlice({
 
       state.boughtUpgrades.push(action.payload);
     },
+    loadUpgrades: (state, action) => {
+      state.unlockedUpgrades = action.payload.unlockedUpgrades;
+      state.boughtUpgrades = action.payload.boughtUpgrades;
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { checkForUpgrades, buyUpgrade } = upgradesSlice.actions;
+export const { checkForUpgrades, buyUpgrade, loadUpgrades } = upgradesSlice.actions;
 
 export default upgradesSlice.reducer;

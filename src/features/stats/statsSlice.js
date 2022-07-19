@@ -34,6 +34,14 @@ export const statsSlice = createSlice({
         const newSpentAmount = new Decimal(action.payload);
         state.totalBucksSpent = currentTotalBucksSpent.plus(newSpentAmount).toString();
     },
+    loadStats: (state, action) => {
+      state.totalGeneratedBucks = action.payload.totalGeneratedBucks;
+      const difference = Date.now() - action.payload.timestamp;
+      state.totalSecondsPassed = action.payload.stats.totalSecondsPassed + difference/1000;
+      state.totalBucksSpent = action.payload.stats.totalBucksSpent;
+      state.totalMinersBought = action.payload.stats.totalMinersBought;
+      state.totalUpgradesBought = action.payload.stats.totalUpgradesBought;
+    }
   },
 });
 
@@ -42,6 +50,7 @@ export const {
   updateTimeAndMoneyStats,
   updateMinersBought,
   updateUpgradesBought,
+  loadStats
 } = statsSlice.actions;
 
 export default statsSlice.reducer;
