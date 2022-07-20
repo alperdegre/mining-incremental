@@ -63,7 +63,6 @@ function App() {
 
   // Settings Selectors
   const updateRate = useSelector((state) => state.settings.updateRate);
-  const theme = useSelector((state) => state.settings.theme);
 
   // First maps through miners to get each of their perSecond generation
   // after that reduces that array to a single value
