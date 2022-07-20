@@ -31,6 +31,7 @@ export const minersSlice = createSlice({
     },
     buyUntil10: (state, action) => {
       // Calculates the amount left until 10
+      // Since the library i have doesnt have a function for modulus, i have to chain some math functions
       const amount = new Decimal(state.miners[action.payload].amount);
       const amountLeftUntil10 = amount
         .div(10)
@@ -71,31 +72,48 @@ export const minersSlice = createSlice({
         state.miners[action.payload.id].baseGeneration
       );
 
+      // Checks type which can be additive or multiplicative for upgrade types
       switch (action.payload.type) {
         case "additive":
+          // If its additive, it calculates it in a multiplier variable
           multiplier =
             (action.payload.coefficient % 1) +
             state.miners[action.payload.id].additiveMultiplier;
           state.miners[action.payload.id].additiveMultiplier +=
             action.payload.coefficient;
+
+          // Calculates a new PerMiner generation by multiplying the previous multipliers with new additive multiplier
+          // baseGeneration * multiplicativeMultiplier * multiplier
           newPerMiner = baseGeneration
             .times(state.miners[action.payload.id].multiplicativeMultiplier)
             .times(multiplier);
+
+          // Sets the perMiner to this newly calculated value
           state.miners[action.payload.id].perMiner = newPerMiner.toString();
+
+          // Sets perSecond by multiplying this new PerMiner generation with current amount for the miner
           state.miners[action.payload.id].perSecond = newPerMiner
             .times(state.miners[action.payload.id].amount)
             .toString();
           break;
         case "multiplicative":
+          // If its multiplicative, it calculates the new multiplicative in a variable named multiplier
           multiplier =
             action.payload.coefficient *
             state.miners[action.payload.id].multiplicativeMultiplier;
           state.miners[action.payload.id].multiplicativeMultiplier *=
             action.payload.coefficient;
+
+          // Calculates a new PerMiner generation by multiplying the previous multipliers with new additive multiplier
+          // baseGeneration * additiveMultiplier * multiplier
           newPerMiner = baseGeneration
             .times(state.miners[action.payload.id].additiveMultiplier)
             .times(multiplier);
+
+          // Sets the perMiner to this newly calculated value
           state.miners[action.payload.id].perMiner = newPerMiner.toString();
+
+          // Sets perSecond by multiplying this new PerMiner generation with current amount for the miner
           state.miners[action.payload.id].perSecond = newPerMiner
             .times(state.miners[action.payload.id].amount)
             .toString();
@@ -106,12 +124,17 @@ export const minersSlice = createSlice({
     },
     loadMiners: (state, action) => {
       state.miners = action.payload;
-    }
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { buyOne, buyUntil10, unlockNextMiner, applyMinerUpgrade, loadMiners } =
-  minersSlice.actions;
+export const {
+  buyOne,
+  buyUntil10,
+  unlockNextMiner,
+  applyMinerUpgrade,
+  loadMiners,
+} = minersSlice.actions;
 
 export default minersSlice.reducer;

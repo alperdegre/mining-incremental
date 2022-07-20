@@ -14,7 +14,9 @@ export const currencySlice = createSlice({
       const perSec = new Decimal(state.currencyPerSecond);
 
       // perSec / (1000 / updateRate) to get proper per Second generation based on updateRate
-      state.currentCurrency = current.plus(perSec.divide(1000/action.payload)).toString();
+      state.currentCurrency = current
+        .plus(perSec.divide(1000 / action.payload))
+        .toString();
     },
     updateCurrencyPerSecond: (state, action) => {
       const newPerSec = new Decimal(action.payload);
@@ -24,10 +26,14 @@ export const currencySlice = createSlice({
       const current = new Decimal(state.currentCurrency);
       switch (action.payload.type) {
         case "add":
-            state.currentCurrency = current.plus(action.payload.currency).toString();
+          state.currentCurrency = current
+            .plus(action.payload.currency)
+            .toString();
           break;
         case "remove":
-            state.currentCurrency = current.minus(action.payload.currency).toString();
+          state.currentCurrency = current
+            .minus(action.payload.currency)
+            .toString();
           break;
         default:
           break;
@@ -36,10 +42,14 @@ export const currencySlice = createSlice({
     loadCurrency: (state, action) => {
       const currency = new Decimal(action.payload.current);
       const perSec = new Decimal(action.payload.perSec);
-      const difference = (Date.now() - action.payload.timestamp)/1000;
-      state.currentCurrency = currency.plus(perSec.times(difference)).toString();
+      // Calculates the difference between timestamps since last save and current time
+      // converts that time to seconds to calculate correct current currency
+      const difference = (Date.now() - action.payload.timestamp) / 1000;
+      state.currentCurrency = currency
+        .plus(perSec.times(difference))
+        .toString();
       state.currencyPerSecond = perSec.toString();
-    }
+    },
   },
 });
 

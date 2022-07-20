@@ -21,14 +21,14 @@ export const settingsSlice = createSlice({
     updateRate: 250,
   },
   reducers: {
-    saveGame: (state, action) => {
+    saveGame: (_, action) => {
       localStorage.setItem("gameSave", JSON.stringify(action.payload));
     },
     setLoading: (state, action) => {
       state.isLoading = true;
       state.updateRate = +(action.payload.updateRate);
     },
-    resetGame: (state, action) => {
+    resetGame: () => {
       localStorage.removeItem("gameSave");
     },
     changeUpdateRate: (state, action) => {
