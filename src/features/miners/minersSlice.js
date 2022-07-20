@@ -66,7 +66,7 @@ export const minersSlice = createSlice({
       // Calls a specific miner and updates their additive and multiplicative multipliers
       // Gets multiplier type, coefficient and miner id in action.payload
       let multiplier = 0;
-      let newPerMiner = 0;
+      let newPerMiner = new Decimal(0);
       const baseGeneration = new Decimal(
         state.miners[action.payload.id].baseGeneration
       );

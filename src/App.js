@@ -18,6 +18,7 @@ import {
 import MiningPage from "./pages/MiningPage";
 import UpgradesPage from "./pages/UpgradesPage";
 import StatsPage from "./pages/StatsPage";
+import SettingsPage from "./pages/SettingsPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,9 +56,13 @@ function App() {
     (state) => state.stats.totalUpgradesBought
   );
 
+  // Miner Selectors
   const { unlockTresholds, unlockProgress } = useSelector(
     (state) => state.miners.unlocks
   );
+
+  // Settings Selectors
+  const updateRate = useSelector((state) => state.settings.updateRate);
 
   // First maps through miners to get each of their perSecond generation
   // after that reduces that array to a single value
@@ -79,13 +84,13 @@ function App() {
     dispatch(updateCurrencyPerSecond(perSecondGeneration));
 
     // Increases money per tick
-    dispatch(doTick());
+    dispatch(doTick(updateRate));
 
     // Updates Total Time and Total Money Gained for stats
     dispatch(
-      updateTimeAndMoneyStats({ perSec: perSecondGeneration, timePassed: 1 })
+      updateTimeAndMoneyStats({ perSec: perSecondGeneration, timePassed: 1/(1000/updateRate) })
     );
-  }, [1000]);
+  }, [updateRate]);
 
   // Interval to save the game every 30 seconds
   useInterval(() => {
@@ -106,6 +111,9 @@ function App() {
         totalBucksSpent,
         totalMinersBought,
         totalUpgradesBought,
+      },
+      settings: {
+        updateRate
       },
       timestamp: Date.now(),
     };
@@ -131,17 +139,17 @@ function App() {
   const statsButtonHandler = (event) => {
     dispatch(changePage("STATS"));
   };
-  const aboutButtonHandler = (event) => {
-    dispatch(changePage("ABOUT"));
+  const settingsButtonHandler = (event) => {
+    dispatch(changePage("SETTINGS"));
   };
 
   return (
     <div className="App">
       <div className="currencySection">
-        <h1>Mining Idle Prototype</h1>
-        <h2>You have {formatNumber(currentCurrency, 2)} Mining Bucks</h2>
-        <h3>
-          You are getting {currencyPerSecond.toString()} Mining Bucks per second
+        <h1 className="page__title">Mining Idle Prototype</h1>
+        <h2 className="currency__currentText">You have <span className="currency__boldText">{formatNumber(currentCurrency, 2)}</span> Mining Bucks</h2>
+        <h3 className="currency__subText">
+          You are getting {formatNumber(currencyPerSecond, 2).toString()} Mining Bucks per second
         </h3>
         <p>Tickrate: {tickRate}</p>
       </div>
@@ -159,15 +167,15 @@ function App() {
         <button onClick={statsButtonHandler} type="button" className="button">
           Stats
         </button>
-        <button onClick={aboutButtonHandler} type="button" className="button">
-          About
+        <button onClick={settingsButtonHandler} type="button" className="button">
+          Settings
         </button>
       </div>
       <div className="mainSection">
         <MiningPage />
         <UpgradesPage />
         <StatsPage />
-        {/* {currentPage === "ABOUT" && <h1>ABOUT</h1>} */}
+        <SettingsPage />
       </div>
     </div>
   );

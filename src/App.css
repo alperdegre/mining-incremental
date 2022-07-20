@@ -1,5 +1,5 @@
 * {
- box-sizing: border-box;
+  box-sizing: border-box;
 }
 .currencySection {
   text-align: center;
@@ -25,6 +25,12 @@
   text-align: center;
 }
 
+.settingsSection {
+  margin: 0 auto;
+  width: 40%;
+  text-align: center;
+}
+
 .stats__text {
   margin: 0.4rem;
   font-size: 18px;
@@ -33,6 +39,26 @@
 
 .stats__stat {
   font-weight: 700;
+}
+
+.currency__currentText {
+  letter-spacing: 0.1rem;
+  font-weight: 400;
+  margin: 0.4rem;
+  font-size: 20px;
+}
+
+.currency__boldText {
+  font-weight: 700;
+  font-size: 36px;
+}
+
+.currency__subText {
+  letter-spacing: 0.1rem;
+  font-weight: 400;
+  margin: 0;
+  margin: 0.4rem;
+  font-size: 18px;
 }
 
 .miningTable {
@@ -52,12 +78,157 @@
   letter-spacing: 0.1rem;
 }
 
+.page__title {
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  text-align: center;
+}
+
 .reset__button {
-  width: 20%;
-  margin: 2rem;
+  width: 49%;
+  padding: 2rem;
+  margin: 0 0 1rem 0;
+  height: 90px;
 }
 
 .button:hover {
   background-color: rgb(201, 196, 196);
   transition: background-color 0.4s;
+}
+
+.settings__buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.settings__updateRate {
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 0.4rem;
+  padding: 0.2rem 2rem;
+  height: 90px;
+  width: 100%;
+}
+
+.settings__updateRateTexts {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+  height: 45px;
+  font-size: 18px;
+  letter-spacing: 0.1rem;
+}
+
+.settings_rateSlider {
+  width: 100%;
+  margin: 0;
+  color: gray;
+}
+
+input[type="range"] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 100%; /* Specific width is required for Firefox. */
+  background: transparent; /* Otherwise white in Chrome */
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type="range"]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type="range"]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+
+  /* Hides the slider so custom styles can be added */
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+/* WebKit/Blink */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 100%;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -5px;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 100%;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+/* IE */
+input[type="range"]::-ms-thumb {
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 100%;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 90%;
+  height: 8.4px;
+  cursor: pointer;
+
+  background: transparent;
+  border-radius: 5px;
+  border: 0.2px solid #010101;
+}
+
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background: transparent;
+}
+
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+
+  background: transparent;
+  border-radius: 5px;
+  border: 0.2px solid #010101;
+}
+
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type="range"]::-ms-fill-lower {
+  background: transparent;
+  border: 0.2px solid #010101;
+  border-radius: 5px;
+}
+input[type="range"]:focus::-ms-fill-lower {
+  background: transparent;
+}
+input[type="range"]::-ms-fill-upper {
+  background: transparent;
+  border: 0.2px solid #010101;
+  border-radius: 5px;
+}
+input[type="range"]:focus::-ms-fill-upper {
+  background: transparent;
 }

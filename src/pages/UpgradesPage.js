@@ -61,20 +61,23 @@ const UpgradesPage = () => {
 
   return (
     currentPage === "UPGRADES" && (
-      <div className="upgradeSection">
-        {upgradesToRender.map((upgrade) => {
-          return (
-            <UpgradeButton
-              key={upgrade.id}
-              id={upgrade.id}
-              name={upgrade.name}
-              cost={upgrade.cost}
-              description={upgrade.description}
-              onUpgradeBought={buyUpgradeHandler}
-            />
-          );
-        })}
-      </div>
+      <>
+        <h2 className="page__title">UPGRADES</h2>
+        <div className="upgradeSection">
+          {upgradesToRender.map((upgrade) => {
+            return (
+              <UpgradeButton
+                key={upgrade.id}
+                id={upgrade.id}
+                name={upgrade.name}
+                cost={upgrade.cost}
+                description={upgrade.description}
+                onUpgradeBought={buyUpgradeHandler}
+              />
+            );
+          })}
+        </div>
+      </>
     )
   );
 };

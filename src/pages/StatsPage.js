@@ -1,28 +1,8 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { resetGame, saveGame } from "../features/settings/settingsSlice";
+import { useSelector } from "react-redux";
 import { formatNumber } from "../utils/utils";
 
 const StatsPage = () => {
-  const dispatch = useDispatch();
-
-  // Currency Selectors
-  const currentCurrency = useSelector(
-    (state) => state.currency.currentCurrency
-  );
-  const currencyPerSecond = useSelector(
-    (state) => state.currency.currencyPerSecond
-  );
-
-  // Miner Selectors
-  const miners = useSelector((state) => state.miners.miners);
-
-  // Upgrades Selectors
-  const unlockedUpgrades = useSelector(
-    (state) => state.upgrades.unlockedUpgrades
-  );
-  const boughtUpgrades = useSelector((state) => state.upgrades.boughtUpgrades);
-
   // Navigation Selectors
   const currentPage = useSelector((state) => state.navigation.currentPage);
 
@@ -49,44 +29,10 @@ const StatsPage = () => {
   const minute = Math.floor((totalSecondsPassed % 3600) / 60);
   const second = Math.floor(totalSecondsPassed % 60);
 
-  const resetButtonHandler = (event) => {
-    event.preventDefault();
-    dispatch(resetGame());
-  };
-
-  const saveButtonHandler = (event) => {
-    event.preventDefault();
-    saveCurrentGame();
-  };
-
-  const saveCurrentGame = () => {
-    const currentState = {
-      currency: {
-        currentCurrency,
-        currencyPerSecond,
-      },
-      miners: miners,
-      upgrades: {
-        unlockedUpgrades,
-        boughtUpgrades,
-      },
-      stats: {
-        totalGeneratedBucks,
-        totalSecondsPassed,
-        totalBucksSpent,
-        totalMinersBought,
-        totalUpgradesBought,
-      },
-      timestamp: Date.now(),
-    };
-
-    dispatch(saveGame(currentState));
-  };
-
   return (
     currentPage === "STATS" && (
       <div className="statsSection">
-        <h2>Stats</h2>
+        <h2 className="page__title">Stats</h2>
         <p className="stats__text">
           You have generated{" "}
           <span className="stats__stat">
@@ -147,20 +93,6 @@ const StatsPage = () => {
           <span className="stats__stat">{second}</span>{" "}
           {second <= 1 ? "second" : "seconds"}
         </p>
-        <button
-          type="button"
-          className="button reset__button"
-          onClick={resetButtonHandler}
-        >
-          Reset Game
-        </button>
-        <button
-          type="button"
-          className="button reset__button"
-          onClick={saveButtonHandler}
-        >
-          Save Game
-        </button>
       </div>
     )
   );

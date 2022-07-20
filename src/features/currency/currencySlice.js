@@ -9,11 +9,12 @@ export const currencySlice = createSlice({
     tickRate: 1000,
   },
   reducers: {
-    doTick: (state) => {
+    doTick: (state, action) => {
       const current = new Decimal(state.currentCurrency);
       const perSec = new Decimal(state.currencyPerSecond);
 
-      state.currentCurrency = current.plus(perSec).toString();
+      // perSec / (1000 / updateRate) to get proper per Second generation based on updateRate
+      state.currentCurrency = current.plus(perSec.divide(1000/action.payload)).toString();
     },
     updateCurrencyPerSecond: (state, action) => {
       const newPerSec = new Decimal(action.payload);

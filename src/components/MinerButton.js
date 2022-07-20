@@ -28,7 +28,7 @@ const MinerButton = ({
     <tr className="miner__row">
       <td className="miner__name">{name}</td>
       <td className="miner__generation">
-        Generating {formatNumber(currencyPerSecond, 0)} Mining Bucks
+        Generating {formatNumber(currencyPerSecond, 2)} Mining Bucks
       </td>
       <td className="miner__amount">
         {formatNumber(amount, 0)} {name} Miners

@@ -70,31 +70,34 @@ const MiningPage = () => {
 
   return (
     currentPage === "MINING" && (
-      <table className="miningTable">
-        <tbody>
-          {miners.map((miner) => {
-            return (
-              miner.unlocked && (
-                <MinerButton
-                  key={miner.id}
-                  id={miner.id}
-                  name={miner.name}
-                  amount={miner.amount}
-                  cost={miner.currentCost}
-                  costUntil10={calculateRealCost(
-                    miner.amount,
-                    miner.growthCoefficient,
-                    miner.currentCost
-                  )}
-                  onBuyOne={buyMinerHandler}
-                  onBuyUntil10={buyMinerUntil10Handler}
-                  currencyPerSecond={miner.perSecond}
-                />
-              )
-            );
-          })}
-        </tbody>
-      </table>
+      <>
+        <h2 className="page__title">MINERS</h2>
+        <table className="miningTable">
+          <tbody>
+            {miners.map((miner) => {
+              return (
+                miner.unlocked && (
+                  <MinerButton
+                    key={miner.id}
+                    id={miner.id}
+                    name={miner.name}
+                    amount={miner.amount}
+                    cost={miner.currentCost}
+                    costUntil10={calculateRealCost(
+                      miner.amount,
+                      miner.growthCoefficient,
+                      miner.currentCost
+                    )}
+                    onBuyOne={buyMinerHandler}
+                    onBuyUntil10={buyMinerUntil10Handler}
+                    currencyPerSecond={miner.perSecond}
+                  />
+                )
+              );
+            })}
+          </tbody>
+        </table>
+      </>
     )
   );
 };
