@@ -63,6 +63,7 @@ function App() {
 
   // Settings Selectors
   const updateRate = useSelector((state) => state.settings.updateRate);
+  const theme = useSelector((state) => state.settings.theme);
 
   // First maps through miners to get each of their perSecond generation
   // after that reduces that array to a single value
@@ -144,7 +145,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <>
       <div className="currencySection">
         <h1 className="page__title">Mining Idle Prototype</h1>
         <h2 className="currency__currentText">You have <span className="currency__boldText">{formatNumber(currentCurrency, 2)}</span> Mining Bucks</h2>
@@ -177,7 +178,7 @@ function App() {
         <StatsPage />
         <SettingsPage />
       </div>
-    </div>
+    </>
   );
 }
 

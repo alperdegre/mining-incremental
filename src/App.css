@@ -1,6 +1,24 @@
 * {
   box-sizing: border-box;
+
 }
+
+.theme {
+  --black: #000;
+  --button-hover: #c9c4c4;
+  --white: #fff;
+  background-color: var(--white);
+  color: var(--black);
+  height: 100%;
+}
+
+.dark {
+  --black: #fff;
+  --button-hover: rgb(65, 65, 65);
+  --white: #1c1c1c;
+}
+
+
 .currencySection {
   text-align: center;
 }
@@ -68,7 +86,8 @@
 
 .button {
   background-color: transparent;
-  border: 1px solid black;
+  border: 1px solid var(--black);
+  color: var(--black);
   padding: 0.2rem 2rem;
   border-radius: 0.4rem;
   width: 100%;
@@ -84,7 +103,7 @@
   text-align: center;
 }
 
-.reset__button {
+.settings__button {
   width: 49%;
   padding: 2rem;
   margin: 0 0 1rem 0;
@@ -92,7 +111,7 @@
 }
 
 .button:hover {
-  background-color: rgb(201, 196, 196);
+  background-color: var(--button-hover);
   transition: background-color 0.4s;
 }
 
@@ -103,9 +122,10 @@
 
 .settings__updateRate {
   background-color: transparent;
-  border: 1px solid black;
+  border: 1px solid var(--black);
   border-radius: 0.4rem;
   padding: 0.2rem 2rem;
+  margin-bottom: 1rem;
   height: 90px;
   width: 100%;
 }
@@ -124,7 +144,6 @@
 .settings_rateSlider {
   width: 100%;
   margin: 0;
-  color: gray;
 }
 
 input[type="range"] {
@@ -154,32 +173,32 @@ input[type="range"]::-ms-track {
 /* WebKit/Blink */
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  border: 1px solid #000000;
+  border: 1px solid var(--black);
   height: 16px;
   width: 16px;
   border-radius: 100%;
-  background: #ffffff;
+  background: var(--white);
   cursor: pointer;
   margin-top: -5px;
 }
 
 /* Firefox */
 input[type="range"]::-moz-range-thumb {
-  border: 1px solid #000000;
+  border: 1px solid var(--black);
   height: 16px;
   width: 16px;
   border-radius: 100%;
-  background: #ffffff;
+  background: var(--white);
   cursor: pointer;
 }
 
 /* IE */
 input[type="range"]::-ms-thumb {
-  border: 1px solid #000000;
+  border: 1px solid var(--black);
   height: 16px;
   width: 16px;
   border-radius: 100%;
-  background: #ffffff;
+  background: var(--white);
   cursor: pointer;
 }
 
@@ -190,7 +209,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 
   background: transparent;
   border-radius: 5px;
-  border: 0.2px solid #010101;
+  border: 0.2px solid var(--black);
 }
 
 input[type="range"]:focus::-webkit-slider-runnable-track {
@@ -204,7 +223,7 @@ input[type="range"]::-moz-range-track {
 
   background: transparent;
   border-radius: 5px;
-  border: 0.2px solid #010101;
+  border: 0.2px solid var(--black);
 }
 
 input[type="range"]::-ms-track {
@@ -218,7 +237,7 @@ input[type="range"]::-ms-track {
 }
 input[type="range"]::-ms-fill-lower {
   background: transparent;
-  border: 0.2px solid #010101;
+  border: 0.2px solid var(--black);
   border-radius: 5px;
 }
 input[type="range"]:focus::-ms-fill-lower {
@@ -226,7 +245,7 @@ input[type="range"]:focus::-ms-fill-lower {
 }
 input[type="range"]::-ms-fill-upper {
   background: transparent;
-  border: 0.2px solid #010101;
+  border: 0.2px solid var(--black);
   border-radius: 5px;
 }
 input[type="range"]:focus::-ms-fill-upper {

@@ -4,6 +4,7 @@ import {
   resetGame,
   saveGame,
   changeUpdateRate,
+  changeTheme,
 } from "../features/settings/settingsSlice";
 
 const SettingsPage = () => {
@@ -46,6 +47,7 @@ const SettingsPage = () => {
 
   // Settings Selectors
   const updateRate = useSelector((state) => state.settings.updateRate);
+  const theme = useSelector((state) => state.settings.theme);
 
   const resetButtonHandler = (event) => {
     event.preventDefault();
@@ -59,6 +61,10 @@ const SettingsPage = () => {
 
   const updateRateChangeHandler = (event) => {
     dispatch(changeUpdateRate(event.target.value));
+  };
+
+  const themeChangeHandler = (event) => {
+    dispatch(changeTheme(theme === "theme" ? "theme dark":"theme"));
   };
 
   const saveCurrentGame = () => {
@@ -95,14 +101,14 @@ const SettingsPage = () => {
         <div className="settings__buttons">
           <button
             type="button"
-            className="button reset__button"
+            className="button settings__button"
             onClick={resetButtonHandler}
           >
             Reset Game
           </button>
           <button
             type="button"
-            className="button reset__button"
+            className="button settings__button"
             onClick={saveButtonHandler}
           >
             Save Game
@@ -125,6 +131,16 @@ const SettingsPage = () => {
             onChange={updateRateChangeHandler}
             value={updateRate}
           ></input>
+        </div>
+
+        <div className="settings__buttons">
+          <button
+            type="button"
+            className="button settings__button"
+            onClick={themeChangeHandler}
+          >
+            {theme === "theme" ? "Dark":"Light"} Mode
+          </button>
         </div>
       </div>
     )
