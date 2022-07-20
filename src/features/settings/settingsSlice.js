@@ -7,11 +7,10 @@ import { loadUpgrades } from "../upgrade/upgradesSlice";
 export const loadGame = createAsyncThunk(
   "settings/loadGame",
   async (saveState, thunkAPI) => {
-    console.log(saveState);
     thunkAPI.dispatch(setLoading());
     thunkAPI.dispatch(loadCurrency({current: saveState.currency.currentCurrency, perSec: saveState.currency.currencyPerSecond, timestamp: saveState.timestamp}));
     thunkAPI.dispatch(loadMiners(saveState.miners));
-    thunkAPI.dispatch(loadStats({stats: saveState.stats, timestamp: saveState.timestamp}))
+    thunkAPI.dispatch(loadStats({stats: saveState.stats, timestamp: saveState.timestamp, current: saveState.currency.currentCurrency, perSec: saveState.currency.currencyPerSecond}))
     thunkAPI.dispatch(loadUpgrades(saveState.upgrades));
   }
 );

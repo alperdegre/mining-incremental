@@ -1,0 +1,169 @@
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { resetGame, saveGame } from "../features/settings/settingsSlice";
+import { formatNumber } from "../utils/utils";
+
+const StatsPage = () => {
+  const dispatch = useDispatch();
+
+  // Currency Selectors
+  const currentCurrency = useSelector(
+    (state) => state.currency.currentCurrency
+  );
+  const currencyPerSecond = useSelector(
+    (state) => state.currency.currencyPerSecond
+  );
+
+  // Miner Selectors
+  const miners = useSelector((state) => state.miners.miners);
+
+  // Upgrades Selectors
+  const unlockedUpgrades = useSelector(
+    (state) => state.upgrades.unlockedUpgrades
+  );
+  const boughtUpgrades = useSelector((state) => state.upgrades.boughtUpgrades);
+
+  // Navigation Selectors
+  const currentPage = useSelector((state) => state.navigation.currentPage);
+
+  // Stats Selectors
+  const totalGeneratedBucks = useSelector(
+    (state) => state.stats.totalGeneratedBucks
+  );
+  const totalSecondsPassed = useSelector(
+    (state) => state.stats.totalSecondsPassed
+  );
+  const totalBucksSpent = useSelector((state) => state.stats.totalBucksSpent);
+  const totalMinersBought = useSelector(
+    (state) => state.stats.totalMinersBought
+  );
+  const totalUpgradesBought = useSelector(
+    (state) => state.stats.totalUpgradesBought
+  );
+
+  // Time Variables
+  const year = Math.floor(totalSecondsPassed / 31536000);
+  const month = Math.floor((totalSecondsPassed % 31536000) / 2628000);
+  const day = Math.floor(((totalSecondsPassed % 31536000) % 2628000) / 86400);
+  const hour = Math.floor((totalSecondsPassed % (3600 * 24)) / 3600);
+  const minute = Math.floor((totalSecondsPassed % 3600) / 60);
+  const second = Math.floor(totalSecondsPassed % 60);
+
+  const resetButtonHandler = (event) => {
+    event.preventDefault();
+    dispatch(resetGame());
+  };
+
+  const saveButtonHandler = (event) => {
+    event.preventDefault();
+    saveCurrentGame();
+  };
+
+  const saveCurrentGame = () => {
+    const currentState = {
+      currency: {
+        currentCurrency,
+        currencyPerSecond,
+      },
+      miners: miners,
+      upgrades: {
+        unlockedUpgrades,
+        boughtUpgrades,
+      },
+      stats: {
+        totalGeneratedBucks,
+        totalSecondsPassed,
+        totalBucksSpent,
+        totalMinersBought,
+        totalUpgradesBought,
+      },
+      timestamp: Date.now(),
+    };
+
+    dispatch(saveGame(currentState));
+  };
+
+  return (
+    currentPage === "STATS" && (
+      <div className="statsSection">
+        <h2>Stats</h2>
+        <p className="stats__text">
+          You have generated{" "}
+          <span className="stats__stat">
+            {formatNumber(totalGeneratedBucks, 2)}
+          </span>{" "}
+          bucks so far!
+        </p>
+        <p className="stats__text">
+          You bought{" "}
+          <span className="stats__stat">
+            {formatNumber(totalMinersBought, 0)}
+          </span>{" "}
+          miners to do that.
+        </p>
+        <p className="stats__text">
+          You bought <span className="stats__stat">{totalUpgradesBought}</span>{" "}
+          upgrades for your miners.
+        </p>
+        <p className="stats__text">
+          You spent{" "}
+          <span className="stats__stat">
+            {formatNumber(totalBucksSpent, 2)}
+          </span>{" "}
+          bucks for those miners and upgrades.
+        </p>
+        <p className="stats__text">
+          You have played for{" "}
+          {totalSecondsPassed >= 31536000 && (
+            <>
+              <span className="stats__stat">{year}</span>{" "}
+              {year === 1 ? "year" : "years"}{" "}
+            </>
+          )}
+          {totalSecondsPassed >= 2592000 && (
+            <>
+              <span className="stats__stat">{month}</span>{" "}
+              {month === 1 ? "month" : "months"}{" "}
+            </>
+          )}
+          {totalSecondsPassed >= 86400 && (
+            <>
+              <span className="stats__stat">{day}</span>{" "}
+              {day === 1 ? "day" : "days"}{" "}
+            </>
+          )}
+          {totalSecondsPassed >= 3600 && (
+            <>
+              <span className="stats__stat">{hour}</span>{" "}
+              {hour === 1 ? "hour" : "hours"}{" "}
+            </>
+          )}
+          {totalSecondsPassed >= 60 && (
+            <>
+              <span className="stats__stat">{minute}</span>{" "}
+              {minute === 1 ? "minute" : "minutes"} and{" "}
+            </>
+          )}
+          <span className="stats__stat">{second}</span>{" "}
+          {second <= 1 ? "second" : "seconds"}
+        </p>
+        <button
+          type="button"
+          className="button reset__button"
+          onClick={resetButtonHandler}
+        >
+          Reset Game
+        </button>
+        <button
+          type="button"
+          className="button reset__button"
+          onClick={saveButtonHandler}
+        >
+          Save Game
+        </button>
+      </div>
+    )
+  );
+};
+
+export default StatsPage;

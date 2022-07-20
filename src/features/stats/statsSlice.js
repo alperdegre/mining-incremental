@@ -14,11 +14,11 @@ export const statsSlice = createSlice({
     updateTimeAndMoneyStats: (state, action) => {
         // Creates new Decimals from already generated money and generation for this second
         // Adds them together then converts toString to save it
-        const generation = new Decimal(action.payload);
+        const generation = new Decimal(action.payload.perSec);
         const generatedSoFar = new Decimal(state.totalGeneratedBucks);
-        state.totalGeneratedBucks = generation.plus(generatedSoFar).toString();
+        state.totalGeneratedBucks = generation.times(action.payload.timePassed).plus(generatedSoFar).toString();
         
-        state.totalSecondsPassed += 1;
+        state.totalSecondsPassed += action.payload.timePassed;
     },
     updateMinersBought: (state, action) => {
         state.totalMinersBought += action.payload.amount;
@@ -35,9 +35,12 @@ export const statsSlice = createSlice({
         state.totalBucksSpent = currentTotalBucksSpent.plus(newSpentAmount).toString();
     },
     loadStats: (state, action) => {
-      state.totalGeneratedBucks = action.payload.totalGeneratedBucks;
-      const difference = Date.now() - action.payload.timestamp;
-      state.totalSecondsPassed = action.payload.stats.totalSecondsPassed + difference/1000;
+      const currency = new Decimal(action.payload.current);
+      const perSec = new Decimal(action.payload.perSec);
+      const difference = (Date.now() - action.payload.timestamp)/1000;
+      state.totalGeneratedBucks = currency.plus(perSec.times(difference)).toString();
+      
+      state.totalSecondsPassed = action.payload.stats.totalSecondsPassed + difference;
       state.totalBucksSpent = action.payload.stats.totalBucksSpent;
       state.totalMinersBought = action.payload.stats.totalMinersBought;
       state.totalUpgradesBought = action.payload.stats.totalUpgradesBought;
