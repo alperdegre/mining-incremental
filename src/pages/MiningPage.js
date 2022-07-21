@@ -50,20 +50,25 @@ const MiningPage = () => {
 
     if (currencyAvailable.greaterThanOrEqualTo(realCost)) {
       // Dispatches buying until 10, and updates currency with proper cost
-      const minerAmount = new Decimal(miners[id].amount).plus(1);
+      const onesDigit = parseInt(
+        miners[id].amount.slice(
+          miners[id].amount.length - 1,
+          miners[id].amount.length
+        )
+      );
+      const amountLeftUntil10 = new Decimal(10 - onesDigit).toString();
 
       dispatch(buyUntil10(id));
       dispatch(updateCurrency({ type: "remove", currency: realCost }));
       dispatch(
-        updateMinersBought(
-          minerAmount
-            .div(10)
-            .minus(minerAmount.div(10).floor())
-            .times(10)
-            .minus(10)
-            .abs()
-            .toString()
-        )
+        updateMinersBought({
+          amount: amountLeftUntil10,
+          cost: calculateRealCost(
+            miners[id].amount,
+            miners[id].growthCoefficient,
+            miners[id].currentCost
+          ),
+        })
       );
     }
   };

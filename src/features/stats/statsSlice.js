@@ -7,7 +7,7 @@ export const statsSlice = createSlice({
     totalGeneratedBucks: "0",
     totalSecondsPassed: 0,
     totalBucksSpent: "0",
-    totalMinersBought: 0,
+    totalMinersBought: "0",
     totalUpgradesBought: 0,
   },
   reducers: {
@@ -25,15 +25,15 @@ export const statsSlice = createSlice({
     },
     updateMinersBought: (state, action) => {
       // Gets 'amount' and the 'cost' for the update in action.payload
-      state.totalMinersBought += action.payload.amount;
+      const currentTotalMiners = new Decimal(state.totalMinersBought);
+      state.totalMinersBought = currentTotalMiners.plus(action.payload.amount).toString();
 
       // To calculate total bucks spent, it creates two new decimals for current spent bucks and cost for the new ones
       const currentTotalBucksSpent = new Decimal(state.totalBucksSpent);
-      const newSpentAmount = new Decimal(action.payload.cost);
 
       // Adds them together for the new total bucks spent
       state.totalBucksSpent = currentTotalBucksSpent
-        .plus(newSpentAmount)
+        .plus(action.payload.cost)
         .toString();
     },
     updateUpgradesBought: (state, action) => {

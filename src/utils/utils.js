@@ -105,19 +105,12 @@ export function formatNumber(inputNum, fixed) {
 }
 
 export function calculateRealCost(amount, growthCoefficient, currentCost) {
-  const amountDecimal = new Decimal(amount);
+  const onesDigit = parseInt(amount.slice(amount.length - 1, amount.length));
   const currentCostDecimal = new Decimal(currentCost);
-  const unitsLeftUntil10 = amountDecimal
-    .div(10)
-    .minus(amountDecimal.div(10).floor())
-    .times(10)
-    .minus(10)
-    .abs()
-    .toNumber();
 
   let total = 0;
 
-  for (let i = 0; i < unitsLeftUntil10; i++) {
+  for (let i = 0; i < 10 - onesDigit; i++) {
     total += growthCoefficient ** i;
   }
 

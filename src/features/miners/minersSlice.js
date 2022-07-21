@@ -31,14 +31,12 @@ export const minersSlice = createSlice({
     },
     buyUntil10: (state, action) => {
       // Calculates the amount left until 10
-      // Since the library i have doesnt have a function for modulus, i have to chain some math functions
+      // Gets the ones digit from string, converts to number
+      // Then finds the necessary amount with 10 - onesDigit
       const amount = new Decimal(state.miners[action.payload].amount);
-      const amountLeftUntil10 = amount
-        .div(10)
-        .minus(amount.div(10).floor())
-        .times(10)
-        .minus(10)
-        .abs();
+      const onesDigit = parseInt(state.miners[action.payload].amount.slice(state.miners[action.payload].amount.length-1, state.miners[action.payload].amount.length));
+      const amountLeftUntil10 = new Decimal(10 - onesDigit);
+
       const updatedAmount = amount.plus(amountLeftUntil10).toString();
       // Updates the amount
       state.miners[action.payload].amount = updatedAmount;
