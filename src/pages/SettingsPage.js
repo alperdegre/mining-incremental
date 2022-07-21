@@ -51,7 +51,7 @@ const SettingsPage = () => {
 
   const resetButtonHandler = (event) => {
     event.preventDefault();
-    dispatch(resetGame());
+    dispatch(resetGame(theme));
   };
 
   const saveButtonHandler = (event) => {
@@ -87,6 +87,7 @@ const SettingsPage = () => {
       },
       settings: {
         updateRate,
+        theme
       },
       timestamp: Date.now(),
     };

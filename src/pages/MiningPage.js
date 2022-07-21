@@ -88,11 +88,7 @@ const MiningPage = () => {
                     name={miner.name}
                     amount={miner.amount}
                     cost={miner.currentCost}
-                    costUntil10={calculateRealCost(
-                      miner.amount,
-                      miner.growthCoefficient,
-                      miner.currentCost
-                    )}
+                    growthCoefficient={miner.growthCoefficient}
                     onBuyOne={buyMinerHandler}
                     onBuyUntil10={buyMinerUntil10Handler}
                     currencyPerSecond={miner.perSecond}
