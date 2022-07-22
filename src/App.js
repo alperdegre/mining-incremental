@@ -75,7 +75,10 @@ function App() {
   // Tick happens inside this custom hook every second
   useInterval(() => {
     // Check to see if you can unlock the next Mining Tier
-    if (currentCurrency >= unlockTresholds[unlockProgress]) {
+    // console.log(currentCurrency);
+    // console.log(unlockTresholds[unlockProgress]);
+    const current = new Decimal(currentCurrency);
+    if (current.greaterThanOrEqualTo(unlockTresholds[unlockProgress])) {
       dispatch(unlockNextMiner(unlockProgress + 1));
     }
 
@@ -103,6 +106,10 @@ function App() {
         currencyPerSecond,
       },
       miners: miners,
+      unlocks: { 
+        unlockTresholds, 
+        unlockProgress 
+      },
       upgrades: {
         unlockedUpgrades,
         boughtUpgrades,
@@ -117,7 +124,7 @@ function App() {
       settings: {
         updateRate,
         theme,
-        notation
+        notation,
       },
       timestamp: Date.now(),
     };

@@ -121,7 +121,8 @@ export const minersSlice = createSlice({
       }
     },
     loadMiners: (state, action) => {
-      state.miners = action.payload;
+      state.miners = action.payload.miners;
+      state.unlocks = action.payload.unlocks;
     },
   },
 });

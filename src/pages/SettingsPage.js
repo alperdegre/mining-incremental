@@ -22,6 +22,7 @@ const SettingsPage = () => {
 
   // Miner Selectors
   const miners = useSelector((state) => state.miners.miners);
+  const unlocks = useSelector((state) => state.miners.unlocks);
 
   // Upgrades Selectors
   const unlockedUpgrades = useSelector(
@@ -87,6 +88,7 @@ const SettingsPage = () => {
         currencyPerSecond,
       },
       miners: miners,
+      unlocks: unlocks,
       upgrades: {
         unlockedUpgrades,
         boughtUpgrades,

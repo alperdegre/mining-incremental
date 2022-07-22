@@ -19,7 +19,7 @@ export const loadGame = createAsyncThunk(
         timestamp: saveState.timestamp,
       })
     );
-    thunkAPI.dispatch(loadMiners(saveState.miners));
+    thunkAPI.dispatch(loadMiners({ miners: saveState.miners, unlocks: saveState.unlocks }));
     thunkAPI.dispatch(
       loadStats({
         stats: saveState.stats,
@@ -38,7 +38,11 @@ export const resetGame = createAsyncThunk(
     const initialState = initialSave;
     const timestamp = Date.now();
     thunkAPI.dispatch(
-      setLoading({ updateRate: initialSave.settings.updateRate, theme: theme, notation: initialSave.settings.notation })
+      setLoading({
+        updateRate: initialSave.settings.updateRate,
+        theme: theme,
+        notation: initialSave.settings.notation,
+      })
     );
     thunkAPI.dispatch(
       loadCurrency({
@@ -47,7 +51,9 @@ export const resetGame = createAsyncThunk(
         timestamp: timestamp,
       })
     );
-    thunkAPI.dispatch(loadMiners(initialState.miners));
+    thunkAPI.dispatch(
+      loadMiners({ miners: initialState.miners, unlocks: initialState.unlocks })
+    );
     thunkAPI.dispatch(
       loadStats({
         stats: initialState.stats,
@@ -96,7 +102,7 @@ export const settingsSlice = createSlice({
     },
     changeNotation: (state, action) => {
       state.notation = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(loadGame.fulfilled, (state, action) => {
@@ -106,7 +112,12 @@ export const settingsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { saveGame, setLoading, changeUpdateRate, changeTheme, changeNotation } =
-  settingsSlice.actions;
+export const {
+  saveGame,
+  setLoading,
+  changeUpdateRate,
+  changeTheme,
+  changeNotation,
+} = settingsSlice.actions;
 
 export default settingsSlice.reducer;

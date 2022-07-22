@@ -5,15 +5,15 @@
 
 .theme {
   --black: #000;
-  --button-hover: #c9c4c4;
-  --white: #fff;
+  --button-hover: #777c88;
+  --white: #b3b9c9;
   background-color: var(--white);
   color: var(--black);
   height: 100%;
 }
 
 .dark {
-  --black: #fff;
+  --black: rgb(176, 214, 185);
   --button-hover: rgb(65, 65, 65);
   --white: #1c1c1c;
 }

@@ -75,6 +75,10 @@
       "unlocked": false
     }
   ],
+  "unlocks": {
+    "unlockTresholds": ["1000", "10000", "100000", "1000000"],
+    "unlockProgress": 0
+  },
   "upgrades": { "unlockedUpgrades": [], "boughtUpgrades": [] },
   "stats": {
     "totalGeneratedBucks": "0",
