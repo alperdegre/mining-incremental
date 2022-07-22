@@ -38,7 +38,7 @@ export const resetGame = createAsyncThunk(
     const initialState = initialSave;
     const timestamp = Date.now();
     thunkAPI.dispatch(
-      setLoading({ updateRate: initialSave.settings.updateRate, theme: theme })
+      setLoading({ updateRate: initialSave.settings.updateRate, theme: theme, notation: initialSave.settings.notation })
     );
     thunkAPI.dispatch(
       loadCurrency({
@@ -79,6 +79,7 @@ export const settingsSlice = createSlice({
       state.isLoading = true;
       state.updateRate = +action.payload.updateRate;
       state.theme = action.payload.theme;
+      state.notation = action.payload.notation;
     },
     changeUpdateRate: (state, action) => {
       if (action.payload < 33) {
