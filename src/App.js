@@ -11,10 +11,7 @@ import { formatNumber } from "./utils/utils";
 import { useEffect, useMemo } from "react";
 import Decimal from "break_infinity.js";
 import { updateTimeAndMoneyStats } from "./features/stats/statsSlice";
-import {
-  saveGame,
-  loadGame,
-} from "./features/settings/settingsSlice";
+import { saveGame, loadGame } from "./features/settings/settingsSlice";
 import MiningPage from "./pages/MiningPage";
 import UpgradesPage from "./pages/UpgradesPage";
 import StatsPage from "./pages/StatsPage";
@@ -64,6 +61,7 @@ function App() {
   // Settings Selectors
   const updateRate = useSelector((state) => state.settings.updateRate);
   const theme = useSelector((state) => state.settings.theme);
+  const notation = useSelector((state) => state.settings.notation);
 
   // First maps through miners to get each of their perSecond generation
   // after that reduces that array to a single value
@@ -89,7 +87,10 @@ function App() {
 
     // Updates Total Time and Total Money Gained for stats
     dispatch(
-      updateTimeAndMoneyStats({ perSec: perSecondGeneration, timePassed: 1/(1000/updateRate) })
+      updateTimeAndMoneyStats({
+        perSec: perSecondGeneration,
+        timePassed: 1 / (1000 / updateRate),
+      })
     );
   }, [updateRate]);
 
@@ -115,7 +116,8 @@ function App() {
       },
       settings: {
         updateRate,
-        theme
+        theme,
+        notation
       },
       timestamp: Date.now(),
     };
@@ -149,9 +151,16 @@ function App() {
     <>
       <div className="currencySection">
         <h1 className="page__title">Mining Idle Prototype</h1>
-        <h2 className="currency__currentText">You have <span className="currency__boldText">{formatNumber(currentCurrency, 2)}</span> Mining Bucks</h2>
+        <h2 className="currency__currentText">
+          You have{" "}
+          <span className="currency__boldText">
+            {formatNumber(currentCurrency, 2)}
+          </span>{" "}
+          Mining Bucks
+        </h2>
         <h3 className="currency__subText">
-          You are getting {formatNumber(currencyPerSecond, 2).toString()} Mining Bucks per second
+          You are getting {formatNumber(currencyPerSecond, 2).toString()} Mining
+          Bucks per second
         </h3>
         <p>Tickrate: {tickRate}</p>
       </div>
@@ -169,7 +178,11 @@ function App() {
         <button onClick={statsButtonHandler} type="button" className="button">
           Stats
         </button>
-        <button onClick={settingsButtonHandler} type="button" className="button">
+        <button
+          onClick={settingsButtonHandler}
+          type="button"
+          className="button"
+        >
           Settings
         </button>
       </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./MinerButton.css";
+import { useSelector } from "react-redux";
 import { calculateRealCost, formatNumber } from "../utils/utils";
 
 const MinerButton = ({
@@ -13,6 +14,9 @@ const MinerButton = ({
   onBuyOne,
   onBuyUntil10,
 }) => {
+  // Settings Selectors
+  const notation = useSelector((state) => state.settings.notation);
+
   const buyOneHandler = (event) => {
     event.preventDefault();
     onBuyOne(id);
@@ -27,18 +31,23 @@ const MinerButton = ({
     <tr className="miner__row">
       <td className="miner__name">{name}</td>
       <td className="miner__generation">
-        Generating {formatNumber(currencyPerSecond, 2)} Mining Bucks
+        Generating {formatNumber(currencyPerSecond, false, notation)} Mining
+        Bucks
       </td>
       <td className="miner__amount">
-        {formatNumber(amount, 0)} {name} Miners
+        {formatNumber(amount, true, notation)} {name} Miners
       </td>
       <td className="miner__buttons">
         <button type="button" className="button" onClick={buyOneHandler}>
-          Cost: {formatNumber(cost, 2)}
+          Cost: {formatNumber(cost, false, notation)}
         </button>
         <button type="button" className="button" onClick={buyUntil10Handler}>
           Until 10, Cost:{" "}
-          {formatNumber(calculateRealCost(amount, growthCoefficient, cost), 2)}
+          {formatNumber(
+            calculateRealCost(amount, growthCoefficient, cost),
+            false,
+            notation
+          )}
         </button>
       </td>
     </tr>

@@ -1,9 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./UpgradeButton.css";
+import { useSelector } from "react-redux";
 import { formatNumber } from "../utils/utils";
 
 const UpgradeButton = ({ id, name, cost, description, onUpgradeBought }) => {
+
+  // Settings Selectors
+  const notation = useSelector((state) => state.settings.notation);
+
   const purchaseUpgradeHandler = (event) => {
     event.preventDefault();
     onUpgradeBought(id, cost);
@@ -20,7 +25,7 @@ const UpgradeButton = ({ id, name, cost, description, onUpgradeBought }) => {
       <p>{description}</p>
       </div>
       <div className="upgrade__cost">
-        <p>{formatNumber(cost, 0)} Bucks</p>
+        <p>{formatNumber(cost, true, notation)} Bucks</p>
       </div>
     </button>
   );

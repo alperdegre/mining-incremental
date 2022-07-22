@@ -21,6 +21,9 @@ const StatsPage = () => {
     (state) => state.stats.totalUpgradesBought
   );
 
+  // Settings Selectors
+  const notation = useSelector((state) => state.settings.notation);
+
   // Time Variables
   const year = Math.floor(totalSecondsPassed / 31536000);
   const month = Math.floor((totalSecondsPassed % 31536000) / 2628000);
@@ -36,14 +39,14 @@ const StatsPage = () => {
         <p className="stats__text">
           You have generated{" "}
           <span className="stats__stat">
-            {formatNumber(totalGeneratedBucks, 2)}
+            {formatNumber(totalGeneratedBucks, false, notation)}
           </span>{" "}
           bucks so far!
         </p>
         <p className="stats__text">
           You bought{" "}
           <span className="stats__stat">
-            {formatNumber(totalMinersBought, 0)}
+            {formatNumber(totalMinersBought, true, notation)}
           </span>{" "}
           miners to do that.
         </p>
@@ -54,7 +57,7 @@ const StatsPage = () => {
         <p className="stats__text">
           You spent{" "}
           <span className="stats__stat">
-            {formatNumber(totalBucksSpent, 2)}
+            {formatNumber(totalBucksSpent, false, notation)}
           </span>{" "}
           bucks for those miners and upgrades.
         </p>

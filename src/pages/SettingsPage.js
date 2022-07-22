@@ -5,6 +5,7 @@ import {
   saveGame,
   changeUpdateRate,
   changeTheme,
+  changeNotation,
 } from "../features/settings/settingsSlice";
 
 const SettingsPage = () => {
@@ -48,6 +49,7 @@ const SettingsPage = () => {
   // Settings Selectors
   const updateRate = useSelector((state) => state.settings.updateRate);
   const theme = useSelector((state) => state.settings.theme);
+  const notation = useSelector((state) => state.settings.notation);
 
   const resetButtonHandler = (event) => {
     event.preventDefault();
@@ -64,7 +66,17 @@ const SettingsPage = () => {
   };
 
   const themeChangeHandler = (event) => {
-    dispatch(changeTheme(theme === "theme" ? "theme dark":"theme"));
+    dispatch(changeTheme(theme === "theme" ? "theme dark" : "theme"));
+  };
+
+  const notationChangeHandler = (event) => {
+    if(notation === "standard"){
+      dispatch(changeNotation("scientific"));
+    } else if(notation === "scientific"){
+      dispatch(changeNotation("engineering"));
+    } else if(notation === "engineering"){
+      dispatch(changeNotation("standard"));
+    }
   };
 
   const saveCurrentGame = () => {
@@ -87,7 +99,8 @@ const SettingsPage = () => {
       },
       settings: {
         updateRate,
-        theme
+        theme,
+        notation,
       },
       timestamp: Date.now(),
     };
@@ -140,7 +153,14 @@ const SettingsPage = () => {
             className="button settings__button"
             onClick={themeChangeHandler}
           >
-            {theme === "theme" ? "Dark":"Light"} Mode
+            {theme === "theme" ? "Dark" : "Light"} Mode
+          </button>
+          <button
+            type="button"
+            className="button settings__button"
+            onClick={notationChangeHandler}
+          >
+            Notation: {notation}
           </button>
         </div>
       </div>

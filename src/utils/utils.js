@@ -1,106 +1,71 @@
 import Decimal from "break_infinity.js";
 
-export function formatNumber(inputNum, fixed) {
-  let num = inputNum;
-  if (typeof inputNum === "string") {
-    num = +inputNum;
-  }
+export function formatNumber(inputNum, trunc, options) {
+  const number = new Decimal(inputNum);
+  const exponent = number.exponent;
+  const precisionNumber = trunc === true ? 0 : 2;
 
-  if (num < 1000) {
-    return num.toFixed(fixed);
-  } else if (num >= 1000) {
-    switch (num.toFixed(0).length - 1) {
-      case 3:
-      case 4:
-      case 5:
-        return `${(num / 10 ** 3).toFixed(fixed)} K`;
-      case 6:
-      case 7:
-      case 8:
-        return `${(num / 10 ** 6).toFixed(fixed)} M`;
-      case 9:
-      case 10:
-      case 11:
-        return `${(num / 10 ** 9).toFixed(fixed)} B`;
-      case 12:
-      case 13:
-      case 14:
-        return `${(num / 10 ** 12).toFixed(fixed)} t`;
-      case 15:
-      case 16:
-      case 17:
-        return `${(num / 10 ** 15).toFixed(fixed)} q`;
-      case 18:
-      case 19:
-      case 20:
-        return `${(num / 10 ** 18).toFixed(fixed)} Q`;
-      case 21:
-      case 22:
-      case 23:
-        return `${(num / 10 ** 21).toFixed(fixed)} s`;
-      case 24:
-      case 25:
-      case 26:
-        return `${(num / 10 ** 24).toFixed(fixed)} S`;
-      case 27:
-      case 28:
-      case 29:
-        return `${(num / 10 ** 27).toFixed(fixed)} o`;
-      case 30:
-      case 31:
-      case 32:
-        return `${(num / 10 ** 30).toFixed(fixed)} n`;
-      case 33:
-      case 34:
-      case 35:
-        return `${(num / 10 ** 33).toFixed(fixed)} d`;
-      case 36:
-      case 37:
-      case 38:
-        return `${(num / 10 ** 36).toFixed(fixed)} U`;
-      case 39:
-      case 40:
-      case 41:
-        return `${(num / 10 ** 39).toFixed(fixed)} D`;
-      case 42:
-      case 43:
-      case 44:
-        return `${(num / 10 ** 42).toFixed(fixed)} T`;
-      case 45:
-      case 46:
-      case 47:
-        return `${(num / 10 ** 45).toFixed(fixed)} Qt`;
-      case 48:
-      case 49:
-      case 50:
-        return `${(num / 10 ** 48).toFixed(fixed)} Qd`;
-      case 51:
-      case 52:
-      case 53:
-        return `${(num / 10 ** 51).toFixed(fixed)} Sd`;
-      case 54:
-      case 55:
-      case 56:
-        return `${(num / 10 ** 54).toFixed(fixed)} St`;
-      case 57:
-      case 58:
-      case 59:
-        return `${(num / 10 ** 57).toFixed(fixed)} O`;
-      case 60:
-      case 61:
-      case 62:
-        return `${(num / 10 ** 60).toFixed(fixed)} N`;
-      case 63:
-      case 64:
-      case 65:
-        return `${(num / 10 ** 63).toFixed(fixed)} v`;
-      case 66:
-      case 67:
-      case 68:
-        return `${num} c`;
-      default:
-        return num;
-    }
+  if (exponent < 3) {
+    return number.toFixed(precisionNumber);
+  }
+  switch (options) {
+    case "standard":
+      if (exponent >= 3 && exponent < 6) {
+        return `${number.divideBy(10 ** 3).toFixed(precisionNumber)} K`;
+      } else if (exponent >= 6 && exponent < 9) {
+        return `${number.divideBy(10 ** 6).toFixed(precisionNumber)} M`;
+      } else if (exponent >= 9 && exponent < 12) {
+        return `${number.divideBy(10 ** 9).toFixed(precisionNumber)} B`;
+      } else if (exponent >= 12 && exponent < 15) {
+        return `${number.divideBy(10 ** 12).toFixed(precisionNumber)} t`;
+      } else if (exponent >= 15 && exponent < 18) {
+        return `${number.divideBy(10 ** 15).toFixed(precisionNumber)} q`;
+      } else if (exponent >= 18 && exponent < 21) {
+        return `${number.divideBy(10 ** 18).toFixed(precisionNumber)} Q`;
+      } else if (exponent >= 21 && exponent < 24) {
+        return `${number.divideBy(10 ** 21).toFixed(precisionNumber)} s`;
+      } else if (exponent >= 24 && exponent < 27) {
+        return `${number.divideBy(10 ** 24).toFixed(precisionNumber)} S`;
+      } else if (exponent >= 27 && exponent < 30) {
+        return `${number.divideBy(10 ** 27).toFixed(precisionNumber)} o`;
+      } else if (exponent >= 30 && exponent < 33) {
+        return `${number.divideBy(10 ** 30).toFixed(precisionNumber)} n`;
+      } else if (exponent >= 33 && exponent < 36) {
+        return `${number.divideBy(10 ** 33).toFixed(precisionNumber)} d`;
+      } else if (exponent >= 36 && exponent < 39) {
+        return `${number.divideBy(10 ** 36).toFixed(precisionNumber)} U`;
+      } else if (exponent >= 39 && exponent < 42) {
+        return `${number.divideBy(10 ** 39).toFixed(precisionNumber)} D`;
+      } else if (exponent >= 42 && exponent < 45) {
+        return `${number.divideBy(10 ** 42).toFixed(precisionNumber)} T`;
+      } else if (exponent >= 45 && exponent < 48) {
+        return `${number.divideBy(10 ** 45).toFixed(precisionNumber)} Qt`;
+      } else if (exponent >= 48 && exponent < 51) {
+        return `${number.divideBy(10 ** 48).toFixed(precisionNumber)} Qd`;
+      } else if (exponent >= 51 && exponent < 54) {
+        return `${number.divideBy(10 ** 51).toFixed(precisionNumber)} Sd`;
+      } else if (exponent >= 54 && exponent < 57) {
+        return `${number.divideBy(10 ** 54).toFixed(precisionNumber)} St`;
+      } else if (exponent >= 57 && exponent < 60) {
+        return `${number.divideBy(10 ** 57).toFixed(precisionNumber)} O`;
+      } else if (exponent >= 60 && exponent < 63) {
+        return `${number.divideBy(10 ** 60).toFixed(precisionNumber)} N`;
+      } else if (exponent >= 63 && exponent < 66) {
+        return `${number.divideBy(10 ** 63).toFixed(precisionNumber)} v`;
+      } else if (exponent >= 66) {
+        return `${number.divideBy(10 ** 66).toFixed(precisionNumber)} c`;
+      }
+      break;
+    case "scientific":
+      return `${number.mantissa.toFixed(2)}e${number.exponent}`;
+    case "engineering":
+      if (exponent === 3){
+        return `${number.mantissa.toFixed(2)}e${number.exponent}`;
+      } else if(exponent === 4){
+        return `${(number.mantissa * 10).toFixed(2)}e${number.exponent - 1}`;
+      } else {
+        return `${(number.mantissa * 100).toFixed(2)}e${number.exponent - 2}`;
+      }
   }
 }
 

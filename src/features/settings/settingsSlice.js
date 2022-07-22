@@ -69,6 +69,7 @@ export const settingsSlice = createSlice({
     isLoading: false,
     updateRate: 250,
     theme: "theme",
+    notation: "standard",
   },
   reducers: {
     saveGame: (_, action) => {
@@ -92,6 +93,9 @@ export const settingsSlice = createSlice({
       state.theme = action.payload;
       document.body.classList = action.payload;
     },
+    changeNotation: (state, action) => {
+      state.notation = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(loadGame.fulfilled, (state, action) => {
@@ -101,7 +105,7 @@ export const settingsSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { saveGame, setLoading, changeUpdateRate, changeTheme } =
+export const { saveGame, setLoading, changeUpdateRate, changeTheme, changeNotation } =
   settingsSlice.actions;
 
 export default settingsSlice.reducer;

@@ -83,5 +83,5 @@
     "totalMinersBought": "0",
     "totalUpgradesBought": 0
   },
-  "settings": { "updateRate": 250, "theme": "theme" }
+  "settings": { "updateRate": 50, "theme": "theme", "notation": "standard" }
 }
