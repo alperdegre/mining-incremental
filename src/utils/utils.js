@@ -83,3 +83,8 @@ export function calculateRealCost(amount, growthCoefficient, currentCost) {
 
   return realCost.toString();
 }
+
+export function capitalizeString(string) {
+  if(typeof string !== "string") return "";
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

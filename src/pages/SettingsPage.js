@@ -7,6 +7,7 @@ import {
   changeTheme,
   changeNotation,
 } from "../features/settings/settingsSlice";
+import { capitalizeString } from "../utils/utils";
 
 const SettingsPage = () => {
   const dispatch = useDispatch();
@@ -160,7 +161,7 @@ const SettingsPage = () => {
             className="button settings__button"
             onClick={notationChangeHandler}
           >
-            Notation: {notation}
+            Notation: {capitalizeString(notation)}
           </button>
         </div>
       </div>
