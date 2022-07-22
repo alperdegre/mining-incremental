@@ -31,6 +31,9 @@ function App() {
 
   // Miner Selectors
   const miners = useSelector((state) => state.miners.miners);
+  const { unlockTresholds, unlockProgress } = useSelector(
+    (state) => state.miners.unlocks
+  );
 
   // Upgrade Selectors
   const unlockedUpgrades = useSelector(
@@ -51,11 +54,6 @@ function App() {
   );
   const totalUpgradesBought = useSelector(
     (state) => state.stats.totalUpgradesBought
-  );
-
-  // Miner Selectors
-  const { unlockTresholds, unlockProgress } = useSelector(
-    (state) => state.miners.unlocks
   );
 
   // Settings Selectors
@@ -161,12 +159,12 @@ function App() {
         <h2 className="currency__currentText">
           You have{" "}
           <span className="currency__boldText">
-            {formatNumber(currentCurrency, 2)}
+            {formatNumber(currentCurrency, false, notation)}
           </span>{" "}
           Mining Bucks
         </h2>
         <h3 className="currency__subText">
-          You are getting {formatNumber(currencyPerSecond, 2).toString()} Mining
+          You are getting {formatNumber(currencyPerSecond, false, notation).toString()} Mining
           Bucks per second
         </h3>
         <p>Tickrate: {tickRate}</p>
@@ -180,7 +178,7 @@ function App() {
           type="button"
           className="button"
         >
-          Upgrades
+          Upgrades {unlockedUpgrades.length - boughtUpgrades.length === 0 ? "" : `(${unlockedUpgrades.length - boughtUpgrades.length})`}
         </button>
         <button onClick={statsButtonHandler} type="button" className="button">
           Stats
