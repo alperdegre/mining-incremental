@@ -58,7 +58,12 @@ export const minersSlice = createSlice({
         .toString();
     },
     unlockNextMiner: (state, action) => {
-      state.miners[action.payload].unlocked = true;
+      // Return if it tries to unlock a miner that is off-index
+      // This can occur during initial loading
+      if(action.payload > state.miners.length){
+        return;
+      }
+      state.miners[action.payload-1].unlocked = true;
       state.unlocks.unlockProgress += 1;
     },
     applyMinerUpgrade: (state, action) => {
