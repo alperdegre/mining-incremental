@@ -57,9 +57,11 @@ const MiningPage = () => {
         )
       );
       const amountLeftUntil10 = new Decimal(10 - onesDigit).toString();
+      const minerAmount = new Decimal(miners[id].amount).plus(amountLeftUntil10).toString();
 
       dispatch(buyUntil10(id));
       dispatch(updateCurrency({ type: "remove", currency: realCost }));
+      dispatch(checkForUpgrades({ id, amount: minerAmount }));
       dispatch(
         updateMinersBought({
           amount: amountLeftUntil10,

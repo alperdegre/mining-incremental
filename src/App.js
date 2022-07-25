@@ -151,7 +151,7 @@ function App() {
   const settingsButtonHandler = (event) => {
     dispatch(changePage("SETTINGS"));
   };
-
+  
   return (
     <>
       <div className="currencySection">

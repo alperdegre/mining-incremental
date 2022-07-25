@@ -50,7 +50,7 @@ const UpgradesPage = () => {
 
       dispatch(
         applyMinerUpgrade({
-          id: specificUpgrade[0].id,
+          id: specificUpgrade[0].appliesTo,
           type: specificUpgrade[0].type,
           coefficient: specificUpgrade[0].coefficient,
         })

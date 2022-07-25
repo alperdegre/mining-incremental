@@ -34,7 +34,12 @@ export const minersSlice = createSlice({
       // Gets the ones digit from string, converts to number
       // Then finds the necessary amount with 10 - onesDigit
       const amount = new Decimal(state.miners[action.payload].amount);
-      const onesDigit = parseInt(state.miners[action.payload].amount.slice(state.miners[action.payload].amount.length-1, state.miners[action.payload].amount.length));
+      const onesDigit = parseInt(
+        state.miners[action.payload].amount.slice(
+          state.miners[action.payload].amount.length - 1,
+          state.miners[action.payload].amount.length
+        )
+      );
       const amountLeftUntil10 = new Decimal(10 - onesDigit);
 
       const updatedAmount = amount.plus(amountLeftUntil10).toString();
@@ -60,10 +65,10 @@ export const minersSlice = createSlice({
     unlockNextMiner: (state, action) => {
       // Return if it tries to unlock a miner that is off-index
       // This can occur during initial loading
-      if(action.payload > state.miners.length){
+      if (action.payload > state.miners.length - 1) {
         return;
       }
-      state.miners[action.payload-1].unlocked = true;
+      state.miners[action.payload].unlocked = true;
       state.unlocks.unlockProgress += 1;
     },
     applyMinerUpgrade: (state, action) => {
@@ -83,7 +88,7 @@ export const minersSlice = createSlice({
             (action.payload.coefficient % 1) +
             state.miners[action.payload.id].additiveMultiplier;
           state.miners[action.payload.id].additiveMultiplier +=
-            action.payload.coefficient;
+            action.payload.coefficient - 1;
 
           // Calculates a new PerMiner generation by multiplying the previous multipliers with new additive multiplier
           // baseGeneration * multiplicativeMultiplier * multiplier

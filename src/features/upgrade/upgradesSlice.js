@@ -1,7 +1,6 @@
-import { createSlice, isFulfilled } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import Decimal from "break_infinity.js";
 import initialState from "../../data/upgrades.json";
-import { loadGame } from "../settings/settingsSlice";
 
 export const upgradesSlice = createSlice({
   name: "upgrades",
@@ -25,10 +24,16 @@ export const upgradesSlice = createSlice({
         // And maps through those upgrades to only select id's from them.
         .map((upgrade) => upgrade.id);
 
+      
       // Checks if there are new unlockable upgrades
       if (unlockableUpgrades.length > 0) {
         // Updates the current unlocked upgrades state
-        state.unlockedUpgrades = unlockableUpgrades;
+        // Filters through already unlocked upgrades and returns the ones that are not already present
+        const currentUpgrades = state.unlockedUpgrades.filter((upgrade) => {
+          return !unlockableUpgrades.includes(upgrade);
+        })
+        // Concats the currentUpgrades - already unlocked upgrades with unlockable upgrades
+        state.unlockedUpgrades = currentUpgrades.concat(unlockableUpgrades);
       }
     },
     buyUpgrade: (state, action) => {
@@ -43,11 +48,12 @@ export const upgradesSlice = createSlice({
     loadUpgrades: (state, action) => {
       state.unlockedUpgrades = action.payload.unlockedUpgrades;
       state.boughtUpgrades = action.payload.boughtUpgrades;
-    }
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { checkForUpgrades, buyUpgrade, loadUpgrades } = upgradesSlice.actions;
+export const { checkForUpgrades, buyUpgrade, loadUpgrades } =
+  upgradesSlice.actions;
 
 export default upgradesSlice.reducer;
