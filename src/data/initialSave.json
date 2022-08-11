@@ -27,8 +27,8 @@
       "baseGeneration": "10",
       "additiveMultiplier": 1,
       "multiplicativeMultiplier": 1,
-      "baseCost": "1000",
-      "currentCost": "1000",
+      "baseCost": "100",
+      "currentCost": "100",
       "growthCoefficient": 1.13,
       "unlocked": false
     },
@@ -41,8 +41,8 @@
       "baseGeneration": "100",
       "additiveMultiplier": 1,
       "multiplicativeMultiplier": 1,
-      "baseCost": "10000",
-      "currentCost": "10000",
+      "baseCost": "1000",
+      "currentCost": "1000",
       "growthCoefficient": 1.21,
       "unlocked": false
     },
@@ -55,8 +55,8 @@
       "baseGeneration": "1000",
       "additiveMultiplier": 1,
       "multiplicativeMultiplier": 1,
-      "baseCost": "100000",
-      "currentCost": "100000",
+      "baseCost": "10000",
+      "currentCost": "10000",
       "growthCoefficient": 1.29,
       "unlocked": false
     },
@@ -69,8 +69,8 @@
       "baseGeneration": "10000",
       "additiveMultiplier": 1,
       "multiplicativeMultiplier": 1,
-      "baseCost": "1000000",
-      "currentCost": "1000000",
+      "baseCost": "100000",
+      "currentCost": "100000",
       "growthCoefficient": 1.39,
       "unlocked": false
     }

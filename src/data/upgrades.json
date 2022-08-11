@@ -1,375 +1,5 @@
 [
   {
-    "id": 0,
-    "name": "Stone 1",
-    "description": "Increases Stone Miner's generation by %20",
-    "cost": "500",
-    "appliesTo": 0,
-    "amountRequired": "10",
-    "type": "additive",
-    "coefficient": 1.2
-  },
-  {
-    "id": 1,
-    "name": "Stone 2",
-    "description": "Increases Stone Miner's generation by %30",
-    "cost": "5000",
-    "appliesTo": 0,
-    "amountRequired": "50",
-    "type": "additive",
-    "coefficient": 1.3
-  },
-  {
-    "id": 2,
-    "name": "Stone 3",
-    "description": "Stone Miners generate %50 more currency",
-    "cost": "1000000",
-    "appliesTo": 0,
-    "amountRequired": "100",
-    "type": "multiplicative",
-    "coefficient": 1.5
-  },
-  {
-    "id": 3,
-    "name": "Stone 4",
-    "description": "Stone Miners generate %100 more currency",
-    "cost": "100000000",
-    "appliesTo": 0,
-    "amountRequired": "150",
-    "type": "multiplicative",
-    "coefficient": 2.0
-  },
-  {
-    "id": 4,
-    "name": "Stone 5",
-    "description": "Increases Stone Miner's generation by %60",
-    "cost": "1000000000",
-    "appliesTo": 0,
-    "amountRequired": "300",
-    "type": "additive",
-    "coefficient": 1.4
-  },
-  {
-    "id": 5,
-    "name": "Stone 6",
-    "description": "Increases Stone Miner's generation by %100",
-    "cost": "10000000000",
-    "appliesTo": 0,
-    "amountRequired": "400",
-    "type": "additive",
-    "coefficient": 2.0
-  },
-  {
-    "id": 6,
-    "name": "Stone 6",
-    "description": "Stone Miners generate %100 more currency",
-    "cost": "100000000000",
-    "appliesTo": 0,
-    "amountRequired": "500",
-    "type": "multiplicative",
-    "coefficient": 2.0
-  },
-  {
-    "id": 7,
-    "name": "Stone 7",
-    "description": "Increases Stone Miner's generation by %100",
-    "cost": "1000000000000",
-    "appliesTo": 0,
-    "amountRequired": "750",
-    "type": "additive",
-    "coefficient": 2.0
-  },
-  {
-    "id": 8,
-    "name": "Stone 8",
-    "description": "Increases Stone Miner's generation by %100",
-    "cost": "1000000000000",
-    "appliesTo": 0,
-    "amountRequired": "750",
-    "type": "additive",
-    "coefficient": 2.0
-  },
-  {
-    "id": 9,
-    "name": "Stone 9",
-    "description": "Stone Miners generate %100 more currency",
-    "cost": "10000000000000",
-    "appliesTo": 0,
-    "amountRequired": "1000",
-    "type": "multiplicative",
-    "coefficient": 2.0
-  },
-  {
-    "id": 10,
-    "name": "Stone 10",
-    "description": "Increases Stone Miner's generation by %100",
-    "cost": "10000000000000",
-    "appliesTo": 0,
-    "amountRequired": "2000",
-    "type": "additive",
-    "coefficient": 2.0
-  },
-  {
-    "id": 11,
-    "name": "Iron 1",
-    "description": "Increases Iron Miner's generation by %50",
-    "cost": "10000",
-    "appliesTo": 1,
-    "amountRequired": "25",
-    "type": "additive",
-    "coefficient": 1.5
-  },
-  {
-    "id": 12,
-    "name": "Iron 2",
-    "description": "Increases Iron Miner's generation by %70",
-    "cost": "50000",
-    "appliesTo": 1,
-    "amountRequired": "50",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 13,
-    "name": "Iron 3",
-    "description": "Increases Iron Miner's generation by %70",
-    "cost": "100000",
-    "appliesTo": 1,
-    "amountRequired": "75",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 14,
-    "name": "Iron 4",
-    "description": "Increases Iron Miner's generation by %70",
-    "cost": "200000",
-    "appliesTo": 1,
-    "amountRequired": "150",
-    "type": "additive",
-    "coefficient": 1.5
-  },
-  {
-    "id": 15,
-    "name": "Iron 5",
-    "description": "Increases Iron Miner's generation by %70",
-    "cost": "1000000",
-    "appliesTo": 1,
-    "amountRequired": "500",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 16,
-    "name": "Iron 6",
-    "description": "Increases Iron Miner's generation by %70",
-    "cost": "5000000",
-    "appliesTo": 1,
-    "amountRequired": "750",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 17,
-    "name": "Iron 7",
-    "description": "Iron Miners generate %100 more currency",
-    "cost": "25000000",
-    "appliesTo": 1,
-    "amountRequired": "1000",
-    "type": "multiplicative",
-    "coefficient": 2.0
-  },
-  {
-    "id": 18,
-    "name": "Iron 8",
-    "description": "Iron Miners generate %100 more currency",
-    "cost": "1000000",
-    "appliesTo": 1,
-    "amountRequired": "1500",
-    "type": "multiplicative",
-    "coefficient": 2.0
-  },
-  {
-    "id": 19,
-    "name": "Iron 9",
-    "description": "Iron Miners generate %100 more currency",
-    "cost": "1000000000000",
-    "appliesTo": 1,
-    "amountRequired": "2000",
-    "type": "multiplicative",
-    "coefficient": 2.0
-  },
-  {
-    "id": 20,
-    "name": "Iron 10",
-    "description": "Iron Miners generate %100 more currency",
-    "cost": "10000000000000",
-    "appliesTo": 1,
-    "amountRequired": "3000",
-    "type": "multiplicative",
-    "coefficient": 2.0
-  },
-  {
-    "id": 21,
-    "name": "Gold 1",
-    "description": "Increases Gold Miner's generation by %50",
-    "cost": "100000",
-    "appliesTo": 2,
-    "amountRequired": "15",
-    "type": "additive",
-    "coefficient": 1.5
-  },
-  {
-    "id": 22,
-    "name": "Gold 2",
-    "description": "Increases Gold Miner's generation by %70",
-    "cost": "500000",
-    "appliesTo": 2,
-    "amountRequired": "75",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 23,
-    "name": "Gold 3",
-    "description": "Increases Gold Miner's generation by %70",
-    "cost": "1000000",
-    "appliesTo": 2,
-    "amountRequired": "150",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 24,
-    "name": "Gold 4",
-    "description": "Increases Gold Miner's generation by %70",
-    "cost": "2000000",
-    "appliesTo": 2,
-    "amountRequired": "250",
-    "type": "additive",
-    "coefficient": 1.5
-  },
-  {
-    "id": 25,
-    "name": "Gold 5",
-    "description": "Increases Gold Miner's generation by %70",
-    "cost": "10000000",
-    "appliesTo": 2,
-    "amountRequired": "500",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 26,
-    "name": "Gold 6",
-    "description": "Increases Gold Miner's generation by %70",
-    "cost": "50000000",
-    "appliesTo": 2,
-    "amountRequired": "750",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 27,
-    "name": "Gold 7",
-    "description": "Gold Miners generate %100 more currency",
-    "cost": "250000000",
-    "appliesTo": 2,
-    "amountRequired": "1000",
-    "type": "multiplicative",
-    "coefficient": 2.0
-  },
-  {
-    "id": 28,
-    "name": "Gold 8",
-    "description": "Gold Miners generate %100 more currency",
-    "cost": "10000000",
-    "appliesTo": 2,
-    "amountRequired": "1500",
-    "type": "multiplicative",
-    "coefficient": 2.0
-  },
-  {
-    "id": 29,
-    "name": "Gold 9",
-    "description": "Gold Miners generate %100 more currency",
-    "cost": "10000000000000",
-    "appliesTo": 2,
-    "amountRequired": "2000",
-    "type": "multiplicative",
-    "coefficient": 2.0
-  },
-  {
-    "id": 30,
-    "name": "Gold 10",
-    "description": "Gold Miners generate %100 more currency",
-    "cost": "100000000000000",
-    "appliesTo": 2,
-    "amountRequired": "3000",
-    "type": "multiplicative",
-    "coefficient": 2.0
-  },
-  {
-    "id": 31,
-    "name": "Emerald 1",
-    "description": "Increases Emerald Miner's generation by %50",
-    "cost": "5000000",
-    "appliesTo": 3,
-    "amountRequired": "10",
-    "type": "additive",
-    "coefficient": 1.5
-  },
-  {
-    "id": 32,
-    "name": "Emerald 2",
-    "description": "Increases Emerald Miner's generation by %70",
-    "cost": "5000000",
-    "appliesTo": 3,
-    "amountRequired": "75",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 33,
-    "name": "Emerald 3",
-    "description": "Increases Emerald Miner's generation by %70",
-    "cost": "10000000",
-    "appliesTo": 3,
-    "amountRequired": "150",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 34,
-    "name": "Emerald 4",
-    "description": "Increases Emerald Miner's generation by %70",
-    "cost": "20000000",
-    "appliesTo": 3,
-    "amountRequired": "250",
-    "type": "additive",
-    "coefficient": 1.5
-  },
-  {
-    "id": 35,
-    "name": "Emerald 5",
-    "description": "Increases Emerald Miner's generation by %70",
-    "cost": "100000000",
-    "appliesTo": 3,
-    "amountRequired": "500",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 36,
-    "name": "Emerald 6",
-    "description": "Increases Emerald Miner's generation by %70",
-    "cost": "500000000",
-    "appliesTo": 3,
-    "amountRequired": "750",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
     "id": 37,
     "name": "Emerald 7",
     "description": "Emerald Miners generate %100 more currency",
@@ -377,7 +7,7 @@
     "appliesTo": 3,
     "amountRequired": "1000",
     "type": "multiplicative",
-    "coefficient": 2.0
+    "coefficient": 2
   },
   {
     "id": 38,
@@ -387,7 +17,7 @@
     "appliesTo": 3,
     "amountRequired": "1500",
     "type": "multiplicative",
-    "coefficient": 2.0
+    "coefficient": 2
   },
   {
     "id": 39,
@@ -397,7 +27,7 @@
     "appliesTo": 3,
     "amountRequired": "2000",
     "type": "multiplicative",
-    "coefficient": 2.0
+    "coefficient": 2
   },
   {
     "id": 40,
@@ -407,166 +37,656 @@
     "appliesTo": 3,
     "amountRequired": "3000",
     "type": "multiplicative",
-    "coefficient": 2.0
+    "coefficient": 2
   },
   {
-    "id": 41,
-    "name": "Diamond 1",
-    "description": "Increases Diamond Miner's generation by %50",
-    "cost": "10000000",
-    "appliesTo": 4,
-    "amountRequired": "15",
+    "id": 2,
+    "name": "Stone 3",
+    "description": "Stone Miners generate %500 more currency",
+    "cost": "100000",
+    "appliesTo": 0,
+    "amountRequired": "100",
+    "type": "multiplicative",
+    "coefficient": 6
+  },
+  {
+    "id": 10,
+    "name": "Stone 10",
+    "description": "Increases Stone Miner's generation by %1000",
+    "cost": "10000000000000",
+    "appliesTo": 0,
+    "amountRequired": "2000",
     "type": "additive",
-    "coefficient": 1.5
+    "coefficient": 10
   },
   {
-    "id": 42,
-    "name": "Diamond 2",
-    "description": "Increases Diamond Miner's generation by %70",
-    "cost": "50000000",
-    "appliesTo": 4,
-    "amountRequired": "75",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 43,
-    "name": "Diamond 3",
-    "description": "Increases Diamond Miner's generation by %70",
-    "cost": "100000000",
-    "appliesTo": 4,
-    "amountRequired": "150",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 44,
-    "name": "Diamond 4",
-    "description": "Increases Diamond Miner's generation by %70",
-    "cost": "200000000",
-    "appliesTo": 4,
-    "amountRequired": "250",
-    "type": "additive",
-    "coefficient": 1.5
-  },
-  {
-    "id": 45,
-    "name": "Diamond 5",
-    "description": "Increases Diamond Miner's generation by %70",
-    "cost": "1000000000",
-    "appliesTo": 4,
-    "amountRequired": "500",
-    "type": "additive",
-    "coefficient": 1.7
-  },
-  {
-    "id": 46,
-    "name": "Diamond 6",
-    "description": "Increases Diamond Miner's generation by %70",
-    "cost": "5000000000",
-    "appliesTo": 4,
+    "id": 8,
+    "name": "Stone 8",
+    "description": "Increases Stone Miner's generation by %1000",
+    "cost": "250000000000",
+    "appliesTo": 0,
     "amountRequired": "750",
     "type": "additive",
-    "coefficient": 1.7
+    "coefficient": 10
   },
   {
-    "id": 47,
-    "name": "Diamond 7",
-    "description": "Diamond Miners generate %100 more currency",
-    "cost": "25000000000",
-    "appliesTo": 4,
+    "id": 7,
+    "name": "Stone 7",
+    "description": "Increases Stone Miner's generation by %600",
+    "cost": "100000000000",
+    "appliesTo": 0,
+    "amountRequired": "600",
+    "type": "additive",
+    "coefficient": 6
+  },
+  {
+    "id": 4,
+    "name": "Stone 5",
+    "description": "Increases Stone Miner's generation by %600",
+    "cost": "100000000",
+    "appliesTo": 0,
+    "amountRequired": "300",
+    "type": "additive",
+    "coefficient": 6
+  },
+  {
+    "id": 57,
+    "name": "Stone 2.5",
+    "description": "Increases Stone Miner's generation by %500",
+    "cost": "1000",
+    "appliesTo": 0,
+    "amountRequired": "50",
+    "type": "additive",
+    "coefficient": 5
+  },
+  {
+    "id": 1,
+    "name": "Stone 2",
+    "description": "Increases Stone Miner's generation by %300",
+    "cost": "500",
+    "appliesTo": 0,
+    "amountRequired": "30",
+    "type": "additive",
+    "coefficient": 3
+  },
+  {
+    "id": 0,
+    "name": "Stone 1",
+    "description": "Increases Stone Miner's generation by %200",
+    "cost": "200",
+    "appliesTo": 0,
+    "amountRequired": "10",
+    "type": "additive",
+    "coefficient": 2
+  },
+  {
+    "id": 61,
+    "name": "Iron Age",
+    "description": "Increases Iron Miner's generation by %500",
+    "cost": "7500",
+    "appliesTo": 1,
+    "amountRequired": "10",
+    "type": "additive",
+    "coefficient": 5
+  },
+  {
+    "id": 21,
+    "name": "Gold 1",
+    "description": "Increases Gold Miner's generation by %500",
+    "cost": "100000",
+    "appliesTo": 2,
+    "amountRequired": "15",
+    "type": "additive",
+    "coefficient": 5
+  },
+  {
+    "id": 22,
+    "name": "Gold 2",
+    "description": "Increases Gold Miner's generation by %700",
+    "cost": "500000",
+    "appliesTo": 2,
+    "amountRequired": "75",
+    "type": "additive",
+    "coefficient": 7
+  },
+  {
+    "id": 31,
+    "name": "Emerald 1",
+    "description": "Increases Emerald Miner's generation by %500",
+    "cost": "5000000",
+    "appliesTo": 3,
+    "amountRequired": "10",
+    "type": "additive",
+    "coefficient": 5
+  },
+  {
+    "id": 3,
+    "name": "Stone 4",
+    "description": "Stone Miners generate %500 more currency",
+    "cost": "10000000",
+    "appliesTo": 0,
+    "amountRequired": "150",
+    "type": "multiplicative",
+    "coefficient": 6
+  },
+  {
+    "id": 58,
+    "name": "Stone 4.1",
+    "description": "Stone Miners generate %500 more currency",
+    "cost": "20000000",
+    "appliesTo": 0,
+    "amountRequired": "200",
+    "type": "multiplicative",
+    "coefficient": 6
+  },
+  {
+    "id": 59,
+    "name": "Stone 4.2",
+    "description": "Stone Miners generate %500 more currency",
+    "cost": "30000000",
+    "appliesTo": 0,
+    "amountRequired": "250",
+    "type": "multiplicative",
+    "coefficient": 6
+  },
+  {
+    "id": 5,
+    "name": "Stone 6",
+    "description": "Increases Stone Miner's generation by %1000",
+    "cost": "1000000000",
+    "appliesTo": 0,
+    "amountRequired": "400",
+    "type": "additive",
+    "coefficient": 10
+  },
+  {
+    "id": 6,
+    "name": "Stone 6",
+    "description": "Stone Miners generate %1000 more currency",
+    "cost": "10000000000",
+    "appliesTo": 0,
+    "amountRequired": "500",
+    "type": "multiplicative",
+    "coefficient": 11
+  },
+  {
+    "id": 60,
+    "name": "Stone 8.5",
+    "description": "Stone Miners generate %1000 more currency",
+    "cost": "500000000000",
+    "appliesTo": 0,
+    "amountRequired": "900",
+    "type": "multiplicative",
+    "coefficient": 11
+  },
+  {
+    "id": 9,
+    "name": "Stone 9",
+    "description": "Stone Miners generate %1000 more currency",
+    "cost": "1000000000000",
+    "appliesTo": 0,
     "amountRequired": "1000",
     "type": "multiplicative",
-    "coefficient": 2.0
+    "coefficient": 11
   },
   {
-    "id": 48,
-    "name": "Diamond 8",
-    "description": "Diamond Miners generate %100 more currency",
-    "cost": "1000000000",
-    "appliesTo": 4,
+    "id": 62,
+    "name": "Stone 2.75",
+    "description": "Stone Miners generate %500 more currency",
+    "cost": "25000",
+    "appliesTo": 0,
+    "amountRequired": "75",
+    "type": "multiplicative",
+    "coefficient": 6
+  },
+  {
+    "id": 11,
+    "name": "Iron 1",
+    "description": "Increases Iron Miner's generation by %700",
+    "cost": "20000",
+    "appliesTo": 1,
+    "amountRequired": "25",
+    "type": "additive",
+    "coefficient": 7
+  },
+  {
+    "id": 12,
+    "name": "Iron 2",
+    "description": "Increases Iron Miner's generation by %900",
+    "cost": "50000",
+    "appliesTo": 1,
+    "amountRequired": "50",
+    "type": "additive",
+    "coefficient": 9
+  },
+  {
+    "id": 13,
+    "name": "Iron 3",
+    "description": "Increases Iron Miner's generation by %1100",
+    "cost": "100000",
+    "appliesTo": 1,
+    "amountRequired": "75",
+    "type": "additive",
+    "coefficient": 11
+  },
+  {
+    "id": 14,
+    "name": "Iron 4",
+    "description": "Increases Iron Miner's generation by %1500",
+    "cost": "200000",
+    "appliesTo": 1,
+    "amountRequired": "150",
+    "type": "additive",
+    "coefficient": 15
+  },
+  {
+    "id": 15,
+    "name": "Iron 5",
+    "description": "Increases Iron Miner's generation by %2000",
+    "cost": "1000000",
+    "appliesTo": 1,
+    "amountRequired": "500",
+    "type": "additive",
+    "coefficient": 20
+  },
+  {
+    "id": 16,
+    "name": "Iron 6",
+    "description": "Increases Iron Miner's generation by %2500",
+    "cost": "5000000",
+    "appliesTo": 1,
+    "amountRequired": "750",
+    "type": "additive",
+    "coefficient": 25
+  },
+  {
+    "id": 63,
+    "name": "Iron 0.5",
+    "description": "Iron Miners generate %500 more currency",
+    "cost": "10000",
+    "appliesTo": 1,
+    "amountRequired": "15",
+    "type": "multiplicative",
+    "coefficient": 6
+  },
+  {
+    "id": 17,
+    "name": "Iron 7",
+    "description": "Iron Miners generate %500 more currency",
+    "cost": "25000000",
+    "appliesTo": 1,
+    "amountRequired": "1000",
+    "type": "multiplicative",
+    "coefficient": 6
+  },
+  {
+    "id": 18,
+    "name": "Iron 8",
+    "description": "Iron Miners generate %700 more currency",
+    "cost": "1000000",
+    "appliesTo": 1,
     "amountRequired": "1500",
     "type": "multiplicative",
-    "coefficient": 2.0
+    "coefficient": 8
   },
   {
-    "id": 49,
-    "name": "Diamond 9",
-    "description": "Diamond Miners generate %100 more currency",
-    "cost": "1000000000000000",
-    "appliesTo": 4,
+    "id": 19,
+    "name": "Iron 9",
+    "description": "Iron Miners generate %900 more currency",
+    "cost": "1000000000000",
+    "appliesTo": 1,
     "amountRequired": "2000",
     "type": "multiplicative",
-    "coefficient": 2.0
+    "coefficient": 10
   },
   {
-    "id": 50,
-    "name": "Diamond 10",
-    "description": "Diamond Miners generate %100 more currency",
-    "cost": "10000000000000000",
-    "appliesTo": 4,
+    "id": 20,
+    "name": "Iron 10",
+    "description": "Iron Miners generate %1100 more currency",
+    "cost": "10000000000000",
+    "appliesTo": 1,
     "amountRequired": "3000",
     "type": "multiplicative",
-    "coefficient": 2.0
+    "coefficient": 12
   },
   {
     "id": 51,
     "name": "Gold Rush!",
-    "description": "Gold Miners generate %100 more currency",
+    "description": "Gold Miners generate %900 more currency",
     "cost": "100000",
     "appliesTo": 2,
     "amountRequired": "10",
     "type": "multiplicative",
-    "coefficient": 2.0
+    "coefficient": 10
   },
   {
     "id": 52,
     "name": "Gold Rush 2!",
-    "description": "Gold Miners generate %200 more currency",
+    "description": "Gold Miners generate %1100 more currency",
     "cost": "500000",
     "appliesTo": 2,
     "amountRequired": "30",
     "type": "multiplicative",
-    "coefficient": 3.0
+    "coefficient": 12
   },
   {
     "id": 53,
     "name": "Gold Rush 3!",
-    "description": "Gold Miners generate %400 more currency",
+    "description": "Gold Miners generate %1400 more currency",
     "cost": "500000",
     "appliesTo": 2,
     "amountRequired": "50",
     "type": "multiplicative",
-    "coefficient": 5.0
+    "coefficient": 15
+  },
+  {
+    "id": 25,
+    "name": "Gold 5",
+    "description": "Increases Gold Miner's generation by %1300",
+    "cost": "10000000",
+    "appliesTo": 2,
+    "amountRequired": "500",
+    "type": "additive",
+    "coefficient": 13
+  },
+  {
+    "id": 26,
+    "name": "Gold 6",
+    "description": "Increases Gold Miner's generation by %1500",
+    "cost": "50000000",
+    "appliesTo": 2,
+    "amountRequired": "750",
+    "type": "additive",
+    "coefficient": 15
+  },
+  {
+    "id": 27,
+    "name": "Gold 7",
+    "description": "Gold Miners generate %1600 more currency",
+    "cost": "250000000",
+    "appliesTo": 2,
+    "amountRequired": "1000",
+    "type": "multiplicative",
+    "coefficient": 17
+  },
+  {
+    "id": 28,
+    "name": "Gold 8",
+    "description": "Gold Miners generate %2000 more currency",
+    "cost": "10000000",
+    "appliesTo": 2,
+    "amountRequired": "1500",
+    "type": "multiplicative",
+    "coefficient": 21
+  },
+  {
+    "id": 29,
+    "name": "Gold 9",
+    "description": "Gold Miners generate %2500 more currency",
+    "cost": "10000000000000",
+    "appliesTo": 2,
+    "amountRequired": "2000",
+    "type": "multiplicative",
+    "coefficient": 26
+  },
+  {
+    "id": 30,
+    "name": "Gold 10",
+    "description": "Gold Miners generate %5000 more currency",
+    "cost": "100000000000000",
+    "appliesTo": 2,
+    "amountRequired": "3000",
+    "type": "multiplicative",
+    "coefficient": 51
+  },
+  {
+    "id": 64,
+    "name": "Gold 2.5",
+    "description": "Increases Gold Miner's generation by %800",
+    "cost": "1000000",
+    "appliesTo": 2,
+    "amountRequired": "85",
+    "type": "additive",
+    "coefficient": 8
+  },
+  {
+    "id": 24,
+    "name": "Gold 4",
+    "description": "Increases Gold Miner's generation by %1100",
+    "cost": "5000000",
+    "appliesTo": 2,
+    "amountRequired": "250",
+    "type": "additive",
+    "coefficient": 11
+  },
+  {
+    "id": 65,
+    "name": "Gold 2.75",
+    "description": "Increases Gold Miner's generation by %1500",
+    "cost": "5000000",
+    "appliesTo": 2,
+    "amountRequired": "100",
+    "type": "additive",
+    "coefficient": 15
+  },
+  {
+    "id": 23,
+    "name": "Gold 3",
+    "description": "Increases Gold Miner's generation by %1000",
+    "cost": "2500000",
+    "appliesTo": 2,
+    "amountRequired": "150",
+    "type": "additive",
+    "coefficient": 10
+  },
+  {
+    "id": 66,
+    "name": "Gold Rush 4",
+    "description": "Gold Miners generate %1600 more currency",
+    "cost": "1250000",
+    "appliesTo": 2,
+    "amountRequired": "125",
+    "type": "multiplicative",
+    "coefficient": 17
   },
   {
     "id": 54,
     "name": "Emerald 123",
-    "description": "Increases Emerald Miner's generation by %50",
+    "description": "Increases Emerald Miner's generation by %1000",
     "cost": "7000000",
     "appliesTo": 3,
     "amountRequired": "20",
     "type": "additive",
-    "coefficient": 1.5
+    "coefficient": 10
   },
   {
     "id": 55,
     "name": "Emerald 234",
-    "description": "Increases Emerald Miner's generation by %50",
+    "description": "Increases Emerald Miner's generation by %1500",
     "cost": "10000000",
     "appliesTo": 3,
     "amountRequired": "35",
     "type": "additive",
-    "coefficient": 1.5
+    "coefficient": 15
   },
   {
     "id": 56,
     "name": "Emerald 456",
-    "description": "Increases Emerald Miner's generation by %50",
+    "description": "Increases Emerald Miner's generation by %2000",
     "cost": "15000000",
     "appliesTo": 3,
     "amountRequired": "50",
     "type": "additive",
-    "coefficient": 1.5
+    "coefficient": 20
+  },
+  {
+    "id": 32,
+    "name": "Emerald 2",
+    "description": "Increases Emerald Miner's generation by %2500",
+    "cost": "5000000",
+    "appliesTo": 3,
+    "amountRequired": "75",
+    "type": "additive",
+    "coefficient": 25
+  },
+  {
+    "id": 33,
+    "name": "Emerald 3",
+    "description": "Increases Emerald Miner's generation by %3000",
+    "cost": "10000000",
+    "appliesTo": 3,
+    "amountRequired": "150",
+    "type": "additive",
+    "coefficient": 30
+  },
+  {
+    "id": 34,
+    "name": "Emerald 4",
+    "description": "Increases Emerald Miner's generation by %3500",
+    "cost": "20000000",
+    "appliesTo": 3,
+    "amountRequired": "250",
+    "type": "additive",
+    "coefficient": 35
+  },
+  {
+    "id": 35,
+    "name": "Emerald 5",
+    "description": "Increases Emerald Miner's generation by %4000",
+    "cost": "100000000",
+    "appliesTo": 3,
+    "amountRequired": "500",
+    "type": "additive",
+    "coefficient": 40
+  },
+  {
+    "id": 36,
+    "name": "Emerald 6",
+    "description": "Increases Emerald Miner's generation by %5000",
+    "cost": "500000000",
+    "appliesTo": 3,
+    "amountRequired": "750",
+    "type": "additive",
+    "coefficient": 50
+  },
+  {
+    "id": 67,
+    "name": "Emerald Rush",
+    "description": "Emerald Miners generate %900 more currency",
+    "cost": "1000000000",
+    "appliesTo": 3,
+    "amountRequired": "100",
+    "type": "multiplicative",
+    "coefficient": 10
+  },
+  {
+    "id": 68,
+    "name": "Emerald 2.5",
+    "description": "Increases Emerald Miner's generation by %2750",
+    "cost": "2000000000",
+    "appliesTo": 3,
+    "amountRequired": "125",
+    "type": "additive",
+    "coefficient": 27.5
+  },
+  {
+    "id": 41,
+    "name": "Diamond 1",
+    "description": "Increases Diamond Miner's generation by %500",
+    "cost": "10000000",
+    "appliesTo": 4,
+    "amountRequired": "10",
+    "type": "additive",
+    "coefficient": 5
+  },
+  {
+    "id": 42,
+    "name": "Diamond 2",
+    "description": "Increases Diamond Miner's generation by %1000",
+    "cost": "50000000",
+    "appliesTo": 4,
+    "amountRequired": "20",
+    "type": "additive",
+    "coefficient": 10
+  },
+  {
+    "id": 43,
+    "name": "Diamond 3",
+    "description": "Increases Diamond Miner's generation by %1500",
+    "cost": "100000000",
+    "appliesTo": 4,
+    "amountRequired": "30",
+    "type": "additive",
+    "coefficient": 15
+  },
+  {
+    "id": 44,
+    "name": "Diamond 4",
+    "description": "Increases Diamond Miner's generation by %2000",
+    "cost": "200000000",
+    "appliesTo": 4,
+    "amountRequired": "40",
+    "type": "additive",
+    "coefficient": 20
+  },
+  {
+    "id": 45,
+    "name": "Diamond 5",
+    "description": "Increases Diamond Miner's generation by %2500",
+    "cost": "1000000000",
+    "appliesTo": 4,
+    "amountRequired": "50",
+    "type": "additive",
+    "coefficient": 25
+  },
+  {
+    "id": 46,
+    "name": "Diamond 6",
+    "description": "Increases Diamond Miner's generation by %3000",
+    "cost": "5000000000",
+    "appliesTo": 4,
+    "amountRequired": "60",
+    "type": "additive",
+    "coefficient": 30
+  },
+  {
+    "id": 47,
+    "name": "Diamond 7",
+    "description": "Diamond Miners generate %900 more currency",
+    "cost": "25000000000",
+    "appliesTo": 4,
+    "amountRequired": "70",
+    "type": "multiplicative",
+    "coefficient": 10
+  },
+  {
+    "id": 48,
+    "name": "Diamond 8",
+    "description": "Diamond Miners generate %900 more currency",
+    "cost": "1000000000",
+    "appliesTo": 4,
+    "amountRequired": "80",
+    "type": "multiplicative",
+    "coefficient": 10
+  },
+  {
+    "id": 49,
+    "name": "Diamond 9",
+    "description": "Diamond Miners generate %900 more currency",
+    "cost": "1000000000000000",
+    "appliesTo": 4,
+    "amountRequired": "90",
+    "type": "multiplicative",
+    "coefficient": 10
+  },
+  {
+    "id": 50,
+    "name": "Diamond 10",
+    "description": "Diamond Miners generate %900 more currency",
+    "cost": "10000000000000000",
+    "appliesTo": 4,
+    "amountRequired": "100",
+    "type": "multiplicative",
+    "coefficient": 10
   }
 ]

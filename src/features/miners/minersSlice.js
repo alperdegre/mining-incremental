@@ -85,10 +85,10 @@ export const minersSlice = createSlice({
         case "additive":
           // If its additive, it calculates it in a multiplier variable
           multiplier =
-            (action.payload.coefficient % 1) +
+            action.payload.coefficient +
             state.miners[action.payload.id].additiveMultiplier;
           state.miners[action.payload.id].additiveMultiplier +=
-            action.payload.coefficient - 1;
+            action.payload.coefficient;
 
           // Calculates a new PerMiner generation by multiplying the previous multipliers with new additive multiplier
           // baseGeneration * multiplicativeMultiplier * multiplier
